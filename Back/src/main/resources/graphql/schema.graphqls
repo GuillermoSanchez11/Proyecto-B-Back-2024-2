@@ -1,0 +1,107 @@
+# Definición de tipos
+type City {
+    iataCode: String!
+    airportName: String!
+    country: String!
+}
+
+type Flight {
+    id: ID!
+    flightNumber: String!
+    origin: City!
+    destination: City!
+    price: Float!
+    taxPercentage: Float!
+    surchargePercentage: Float!
+    departureDate: String!
+    arrivalDate: String!
+    departureTime: String!
+    arrivalTime: String!
+    flightType: FlightType!
+    airplaneType: AirplaneType!
+    status: Status!
+}
+
+type FlightType {
+    id: ID!
+    name: String!  # "Nacional" o "Internacional"
+}
+
+type AirplaneType {
+    id: ID!
+    type: Type!  # Tipo de avión
+    maxSeats: Int!
+    seatsDistribution: String!  # Ejemplo "2-4-2", "3-3-3"
+}
+
+type Type {
+    id: ID!
+    name: String!  # Nombre del tipo (ej. "Nacional", "Internacional")
+}
+
+type Status {
+    id: ID!
+    statusName: String!  # Ejemplo "Scheduled", "Completed", "Cancelled"
+}
+
+# Consultas para obtener información
+type Query {
+    getAllAirplaneTypes: [AirplaneType!]!
+    getAirplaneTypeById(id: ID!): AirplaneType
+
+    getAllFlights: [Flight!]!
+    getFlightById(id: ID!): Flight
+}
+
+# Mutaciones para crear, actualizar y eliminar
+type Mutation {
+    createFlight(
+        flightNumber: String!,
+        originIata: String!,
+        destinationIata: String!,#  AAAA-MM-DD (ej. "2024-09-10")
+        departureDate: String!,  #  AAAA-MM-DD (ej. "2024-09-10")
+        arrivalDate: String!,    # 24h (ej. "10:00")
+        departureTime: String!,  # 24h (ej. "10:00")
+        arrivalTime: String!,
+        price: Float!,
+        taxPercentage: Float!,
+        surchargePercentage: Float!,
+        flightTypeId: ID!,
+        airplaneTypeId: ID!,
+        statusId: ID!
+    ): Flight!
+
+    updateFlight(
+        id: ID!,
+        flightNumber: String,
+        originIata: String,
+        destinationIata: String,#  AAAA-MM-DD (ej. "2024-09-10")
+        departureDate: String,  #  AAAA-MM-DD (ej. "2024-09-10")
+        arrivalDate: String,     # 24h (ej. "10:00")
+        departureTime: String,   # 24h (ej. "10:00")
+        arrivalTime: String,
+        price: Float,
+        taxPercentage: Float,
+        surchargePercentage: Float,
+        flightTypeId: ID,
+        airplaneTypeId: ID,
+        statusId: ID
+    ): Flight!
+
+    deleteFlight(id: ID!): Boolean!
+
+    createAirplaneType(
+        typeId: ID!,
+        maxSeats: Int!,
+        seatsDistribution: String!
+    ): AirplaneType!
+
+    updateAirplaneType(
+        id: ID!,
+        typeId: ID,  # Solo necesitas el ID del tipo existente
+        maxSeats: Int,
+        seatsDistribution: String
+    ): AirplaneType!
+
+    deleteAirplaneType(id: ID!): Boolean!
+}
