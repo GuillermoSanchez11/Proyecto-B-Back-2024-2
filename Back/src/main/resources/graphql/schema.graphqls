@@ -1,0 +1,68 @@
+type Query {
+    allBookings: [Booking]
+    bookingById(idBooking: ID!): Booking
+    allPlanes: [Plane]
+}
+
+type Booking {
+    idBooking: ID!
+    flight: Flight
+    status: String
+    created: String
+    updated: String
+    passengers: [Passenger]
+    users: [User]
+
+}
+
+type Flight {
+    idFlight: ID!
+    plane: Plane
+    origin: String
+    destination: String
+    departureDate: String
+    arrivalDate: String
+    status: String
+    aeroline: String
+    captain: String
+    subCaptain: String
+}
+
+type Plane {
+    idPlane: ID!
+    model: String
+    capacity: Int
+}
+
+type Passenger {
+    idPassenger: ID!
+    seat: ID!
+    name: String
+    lastname: String
+    birthday: String
+    documentId: String
+    passportNumber: String
+}
+
+type Seat {
+    idSeat: ID!
+    idFlight: ID!
+    seatType: String
+    price: Float
+    available: Boolean
+}
+
+type User {
+    idUser: ID!
+    name: String
+    lastname: String
+    email: String
+    genrer: String
+    birthday: String
+    country: String
+    city: String
+    documentId: String
+    passportNumber: String
+    registerDate: String
+}
+
