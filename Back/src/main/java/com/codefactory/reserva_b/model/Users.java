@@ -15,26 +15,23 @@ public class Users implements Serializable {
     @Column(name = "id_users")
     private Long idUser;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
 
-    @Column(name = "lastname", nullable = false)
-    private String lastname;
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
 
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "genrer", nullable = false)
-    private String genrer;
+    @Column(name = "nationality", nullable = false)
+    private String nationality;
 
-    @Column(name = "birthday", nullable = false)
-    private LocalDate birthday;
-
-    @Column(name = "country", nullable = false)
-    private String country;
-
-    @Column(name = "city", nullable = false)
-    private String city;
+    @Column(name = "date_of_birth", nullable = false)
+    private LocalDate dateOfBirth;
 
     @Column(name = "document_id", nullable = false)
     private String documentId;
@@ -42,29 +39,48 @@ public class Users implements Serializable {
     @Column(name = "passport_number", nullable = false)
     private String passportNumber;
 
-    @Column(name = "register_date", nullable = false)
-    private LocalDate registerDate;
+    @Column(name = "registration_date", nullable = false)
+    private LocalDate registrationDate;
+
+    @Column(name = "flyer_number", nullable = false)
+    private Long flyerNumber;
+
+    @Column(name = "address", nullable = false)
+    private String address;
+
+    @Column(name = "user_type", nullable = false)
+    private String userType;
+
+    @Column(name = "password_hash", nullable = false)
+    private String passwordHash;
 
     // Constructor por defecto
     public Users() {
     }
 
     // Constructor con todos los campos
-    public Users(Long idUser, String name, String lastname, String email, String genrer, LocalDate birthday, String country, String city, String documentId, String passportNumber, LocalDate registerDate) {
+    public Users(Long idUser, String firstName, String lastName, String phoneNumber, String email,
+                 String nationality, LocalDate dateOfBirth, String documentId, String passportNumber,
+                 LocalDate registrationDate, Long flyerNumber, String address, String userType, String passwordHash) {
         this.idUser = idUser;
-        this.name = name;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.email = email;
-        this.genrer = genrer;
-        this.birthday = birthday;
-        this.country = country;
-        this.city = city;
+        this.nationality = nationality;
+        this.dateOfBirth = dateOfBirth;
         this.documentId = documentId;
         this.passportNumber = passportNumber;
-        this.registerDate = registerDate;
+        this.registrationDate = registrationDate;
+        this.flyerNumber = flyerNumber;
+        this.address = address;
+        this.userType = userType;
+        this.passwordHash = passwordHash;
     }
 
     // Getters y Setters
+
+
     public Long getIdUser() {
         return idUser;
     }
@@ -73,20 +89,28 @@ public class Users implements Serializable {
         this.idUser = idUser;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -97,36 +121,20 @@ public class Users implements Serializable {
         this.email = email;
     }
 
-    public String getGenrer() {
-        return genrer;
+    public String getNationality() {
+        return nationality;
     }
 
-    public void setGenrer(String genrer) {
-        this.genrer = genrer;
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
 
-    public LocalDate getBirthday() {
-        return birthday;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getDocumentId() {
@@ -145,12 +153,44 @@ public class Users implements Serializable {
         this.passportNumber = passportNumber;
     }
 
-    public LocalDate getRegisterDate() {
-        return registerDate;
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
     }
 
-    public void setRegisterDate(LocalDate registerDate) {
-        this.registerDate = registerDate;
+    public void setRegistrationDate(LocalDate registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public Long getFlyerNumber() {
+        return flyerNumber;
+    }
+
+    public void setFlyerNumber(Long flyerNumber) {
+        this.flyerNumber = flyerNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     // equals, hashCode y toString
@@ -168,18 +208,21 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Users{" +
                 "idUser=" + idUser +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", genrer='" + genrer + '\'' +
-                ", birthday=" + birthday +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
+                ", nationality='" + nationality + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
                 ", documentId='" + documentId + '\'' +
                 ", passportNumber='" + passportNumber + '\'' +
-                ", registerDate=" + registerDate +
+                ", registrationDate=" + registrationDate +
+                ", flyerNumber=" + flyerNumber +
+                ", address='" + address + '\'' +
+                ", userType='" + userType + '\'' +
+                ", passwordHash='" + passwordHash + '\'' +
                 '}';
     }
 }

@@ -15,29 +15,33 @@ public class Seat implements Serializable {
     @Column(name = "id_flight", nullable = false)
     private Long flight;  // Relación con Flight
 
-    @Column(name = "seat_type", nullable = false)
-    private String seatType;
+    @Column(name = "seat_number", nullable = false)
+    private String seatNumber;
 
-    @Column(name = "is_avaliable", nullable = false)
-    private boolean isAvailable;
+    @Column(name = "is_reserved", nullable = false)
+    private Boolean isReserved;
 
     @Column(name = "price", nullable = false)
-    private double price;
+    private Double price;
 
-    // Constructor por defecto
-    public Seat() {
-    }
+    @Column(name = "seat_class", nullable = false)
+    private String seatClass;
 
-    // Constructor con todos los campos
-    public Seat(Long idSeat, Long flight, String seatType, boolean isAvailable, double price) {
+    // Constructor
+    public Seat(Long idSeat, Long flight, String seatNumber, Boolean isReserved,
+                Double price, String seatClass) {
         this.idSeat = idSeat;
         this.flight = flight;
-        this.seatType = seatType;
-        this.isAvailable = isAvailable;
+        this.seatNumber = seatNumber;
+        this.isReserved = isReserved;
         this.price = price;
+        this.seatClass = seatClass;
     }
 
-    // Getters y Setters
+    public Seat() {
+
+    }
+
     public Long getIdSeat() {
         return idSeat;
     }
@@ -54,28 +58,36 @@ public class Seat implements Serializable {
         this.flight = flight;
     }
 
-    public String getSeatType() {
-        return seatType;
+    public String getSeatNumber() {
+        return seatNumber;
     }
 
-    public void setSeatType(String seatType) {
-        this.seatType = seatType;
+    public void setSeatNumber(String seatNumber) {
+        this.seatNumber = seatNumber;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
+    public Boolean getReserved() {
+        return isReserved;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    public void setReserved(Boolean reserved) {
+        isReserved = reserved;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getSeatClass() {
+        return seatClass;
+    }
+
+    public void setSeatClass(String seatClass) {
+        this.seatClass = seatClass;
     }
 
     // equals, hashCode y toString
@@ -95,10 +107,11 @@ public class Seat implements Serializable {
     public String toString() {
         return "Seat{" +
                 "idSeat=" + idSeat +
-                ", Flight=" + flight +
-                ", seatType='" + seatType + '\'' +
-                ", isAvailable=" + isAvailable +
+                ", flight=" + flight +
+                ", seatNumber='" + seatNumber + '\'' +
+                ", isReserved=" + isReserved +
                 ", price=" + price +
+                ", seatClass='" + seatClass + '\'' +
                 '}';
     }
 }

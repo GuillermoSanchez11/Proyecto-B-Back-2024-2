@@ -2,6 +2,7 @@ package com.codefactory.reserva_b.model;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,41 +15,37 @@ public class Booking implements Serializable {
     @Column(name = "id_booking")
     private Long idBooking;
 
-    @ManyToOne
-    @JoinColumn(name = "id_flight", nullable = false)
-    private Flight flight;  // Relación con Passenger
+    @Column(name = "id_flight", nullable = false)
+    private Long flight;  // Relación con Passenger
 
-    @Column(name = "status", nullable = false)
-    private String status;
+    @Column(name = "id_user", nullable = false) // Corregido "id_uservarchar" a "id_user"
+    private Long idUser;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDate created;
+    @Column(name = "booking_date", nullable = false)
+    private LocalDateTime bookingDate;
 
-    @Column(name = "updated_at", nullable = false)
-    private LocalDate updated;
+    @Column(name = "booking_status", nullable = false)
+    private String bookingStatus;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-    @JoinTable(name = "users_booking", joinColumns = @JoinColumn(name = "id_booking"), inverseJoinColumns = @JoinColumn(name = "id_users"))
-    private Set<Users> app_users;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-    @JoinTable(name = "booking_passenger", joinColumns = @JoinColumn(name = "id_booking"), inverseJoinColumns = @JoinColumn(name = "id_passenger"))
-    private Set<Passenger> passengers;
 
     // Constructor por defecto
     public Booking() {
     }
 
     // Constructor con todos los campos
-    public Booking(Long idBooking, Flight flight, LocalDate created, LocalDate updated, String status) {
+    public Booking(Long idBooking, Long flight, Long idUser, LocalDateTime bookingDate,
+                   String bookingStatus) {
         this.idBooking = idBooking;
         this.flight = flight;
-        this.created = created;
-        this.updated = updated;
-        this.status = status;
+        this.idUser = idUser;
+        this.bookingDate = bookingDate;
+        this.bookingStatus = bookingStatus;
+
     }
 
     // Getters y Setters
+
+
     public Long getIdBooking() {
         return idBooking;
     }
@@ -57,52 +54,36 @@ public class Booking implements Serializable {
         this.idBooking = idBooking;
     }
 
-    public Set<Users> getUsers() {
-        return app_users;
-    }
-
-    public void setUsers(Set<Users> users) {
-        this.app_users = users;
-    }
-
-    public Set<Passenger> getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(Set<Passenger> passengers) {
-        this.passengers = passengers;
-    }
-
-    public Flight getFlight() {
+    public Long getFlight() {
         return flight;
     }
 
-    public void setFlight(Flight flight) {
+    public void setFlight(Long flight) {
         this.flight = flight;
     }
 
-    public LocalDate getUpdated() {
-        return updated;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setUpdated(LocalDate updated) {
-        this.updated = updated;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
-    public LocalDate getCreated() {
-        return created;
+    public LocalDateTime getBookingDate() {
+        return bookingDate;
     }
 
-    public void setCreated(LocalDate created) {
-        this.created = created;
+    public void setBookingDate(LocalDateTime bookingDate) {
+        this.bookingDate = bookingDate;
     }
 
-    public String getStatus() {
-        return status;
+    public String getBookingStatus() {
+        return bookingStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setBookingStatus(String bookingStatus) {
+        this.bookingStatus = bookingStatus;
     }
 
     // equals, hashCode y toString
@@ -123,9 +104,10 @@ public class Booking implements Serializable {
         return "Booking{" +
                 "idBooking=" + idBooking +
                 ", flight=" + flight +
-                ", created=" + created +
-                ", updated=" + updated +
-                ", status='" + status + '\'' +
+                ", idUser=" + idUser +
+                ", bookingDate=" + bookingDate +
+                ", bookingStatus='" + bookingStatus + '\'' +
+
                 '}';
     }
 }

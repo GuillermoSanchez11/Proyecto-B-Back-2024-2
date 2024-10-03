@@ -15,16 +15,16 @@ public class Passenger implements Serializable {
     private Long idPassenger;
 
     @Column(name = "id_seat", nullable = false)
-    private Long seat;  // Relación con Seat
+    private Long idSeat;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
 
-    @Column(name = "lastname", nullable = false)
-    private String lastname;
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
 
-    @Column(name = "birthday", nullable = false)
-    private LocalDate birthday;
+    @Column(name = "date_of_birth", nullable = false)
+    private LocalDate dateOfBirth;
 
     @Column(name = "document_id", nullable = false)
     private String documentId;
@@ -32,22 +32,37 @@ public class Passenger implements Serializable {
     @Column(name = "passport_number", nullable = false)
     private String passportNumber;
 
-    // Constructor por defecto
-    public Passenger() {
-    }
+    @Column(name = "nationality", nullable = false)
+    private String nationality;
 
-    // Constructor con todos los campos
-    public Passenger(Long idPassenger, Long seat, String name, String lastname, LocalDate birthday, String documentId, String passportNumber) {
+    @Column(name = "special_requests", nullable = false)
+    private String specialRequests;
+
+    @Column(name = "luggage_included", nullable = false)
+    private Boolean luggageIncluded;
+
+    // Constructor
+    public Passenger(Long idPassenger, Long idSeat, String firstName, String lastName, LocalDate dateOfBirth,
+                     String documentId, String passportNumber, String nationality, String specialRequests,
+                     Boolean luggageIncluded) {
         this.idPassenger = idPassenger;
-        this.seat = seat;
-        this.name = name;
-        this.lastname = lastname;
-        this.birthday = birthday;
+        this.idSeat = idSeat;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
         this.documentId = documentId;
         this.passportNumber = passportNumber;
+        this.nationality = nationality;
+        this.specialRequests = specialRequests;
+        this.luggageIncluded = luggageIncluded;
+    }
+
+    public Passenger() {
+
     }
 
     // Getters y Setters
+
     public Long getIdPassenger() {
         return idPassenger;
     }
@@ -56,36 +71,36 @@ public class Passenger implements Serializable {
         this.idPassenger = idPassenger;
     }
 
-    public Long getSeat() {
-        return seat;
+    public Long getIdSeat() {
+        return idSeat;
     }
 
-    public void setSeat(Long seat) {
-        this.seat = seat;
+    public void setIdSeat(Long idSeat) {
+        this.idSeat = idSeat;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public LocalDate getBirthday() {
-        return birthday;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getDocumentId() {
@@ -102,6 +117,30 @@ public class Passenger implements Serializable {
 
     public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public String getSpecialRequests() {
+        return specialRequests;
+    }
+
+    public void setSpecialRequests(String specialRequests) {
+        this.specialRequests = specialRequests;
+    }
+
+    public Boolean getLuggageIncluded() {
+        return luggageIncluded;
+    }
+
+    public void setLuggageIncluded(Boolean luggageIncluded) {
+        this.luggageIncluded = luggageIncluded;
     }
 
     // equals, hashCode y toString
@@ -121,12 +160,15 @@ public class Passenger implements Serializable {
     public String toString() {
         return "Passenger{" +
                 "idPassenger=" + idPassenger +
-                ", seat=" + seat +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", birthday=" + birthday +
+                ", idSeat=" + idSeat +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
                 ", documentId='" + documentId + '\'' +
                 ", passportNumber='" + passportNumber + '\'' +
+                ", nationality='" + nationality + '\'' +
+                ", specialRequests='" + specialRequests + '\'' +
+                ", luggageIncluded=" + luggageIncluded +
                 '}';
     }
 }

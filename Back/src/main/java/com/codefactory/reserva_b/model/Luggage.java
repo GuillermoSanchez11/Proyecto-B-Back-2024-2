@@ -12,37 +12,43 @@ public class Luggage implements Serializable {
     @Column(name = "id_luggage")
     private Long idLuggage;
 
-    @ManyToOne
-    @JoinColumn(name = "id_passanger", nullable = false)
-    private Passenger passenger;  // Relación con Passenger
+    @Column(name = "id_passenger", nullable = false)
+    private Long passenger;  // Relación con Passenger
 
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "height", nullable = false)
-    private double height;
+    @Column(name = "height_cm", nullable = false)
+    private Double heightCm;
 
-    @Column(name = "width", nullable = false)
-    private double width;
+    @Column(name = "weight_kg", nullable = false)
+    private Double weightKg;
 
-    @Column(name = "weight", nullable = false)
-    private double weight;
+    @Column(name = "width_cm", nullable = false)
+    private Double widthCm;
 
-    // Constructor por defecto
-    public Luggage() {
-    }
+    @Column(name = "extra_free", nullable = false)
+    private Double extraFree;
 
-    // Constructor con todos los campos
-    public Luggage(Long idLuggage, Passenger passenger, String type, double height, double width, double weight) {
+    // Constructor
+    public Luggage(Long idLuggage, Long passenger, String type, Double heightCm,
+                   Double weightKg, Double widthCm, Double extraFree) {
         this.idLuggage = idLuggage;
         this.passenger = passenger;
         this.type = type;
-        this.height = height;
-        this.width = width;
-        this.weight = weight;
+        this.heightCm = heightCm;
+        this.weightKg = weightKg;
+        this.widthCm = widthCm;
+        this.extraFree = extraFree;
     }
 
+    public Luggage() {
+
+    }
+
+
     // Getters y Setters
+
     public Long getIdLuggage() {
         return idLuggage;
     }
@@ -51,11 +57,11 @@ public class Luggage implements Serializable {
         this.idLuggage = idLuggage;
     }
 
-    public Passenger getPassenger() {
+    public Long  getPassenger() {
         return passenger;
     }
 
-    public void setPassenger(Passenger passenger) {
+    public void setPassenger(Long passenger) {
         this.passenger = passenger;
     }
 
@@ -67,28 +73,36 @@ public class Luggage implements Serializable {
         this.type = type;
     }
 
-    public double getHeight() {
-        return height;
+    public Double getHeightCm() {
+        return heightCm;
     }
 
-    public void setHeight(double height) {
-        this.height = height;
+    public void setHeightCm(Double heightCm) {
+        this.heightCm = heightCm;
     }
 
-    public double getWidth() {
-        return width;
+    public Double getWeightKg() {
+        return weightKg;
     }
 
-    public void setWidth(double width) {
-        this.width = width;
+    public void setWeightKg(Double weightKg) {
+        this.weightKg = weightKg;
     }
 
-    public double getWeight() {
-        return weight;
+    public Double getWidthCm() {
+        return widthCm;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void setWidthCm(Double widthCm) {
+        this.widthCm = widthCm;
+    }
+
+    public Double getExtraFree() {
+        return extraFree;
+    }
+
+    public void setExtraFree(Double extraFree) {
+        this.extraFree = extraFree;
     }
 
     // equals, hashCode y toString
@@ -110,9 +124,10 @@ public class Luggage implements Serializable {
                 "idLuggage=" + idLuggage +
                 ", passenger=" + passenger +
                 ", type='" + type + '\'' +
-                ", height=" + height +
-                ", width=" + width +
-                ", weight=" + weight +
+                ", heightCm=" + heightCm +
+                ", weightKg=" + weightKg +
+                ", widthCm=" + widthCm +
+                ", extraFree=" + extraFree +
                 '}';
     }
 }
