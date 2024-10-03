@@ -6,63 +6,137 @@ type Query {
 
 type Booking {
     idBooking: ID!
-    flight: Flight
-    status: String
-    created: String
-    updated: String
-    passengers: [Passenger]
-    users: [User]
-
+    flight: ID!
+    idUser: ID!
+    bookingDate: String!
+    bookingStatus: String!
 }
 
-type Flight {
-    idFlight: ID!
-    plane: Plane
-    origin: String
-    destination: String
-    departureDate: String
-    arrivalDate: String
-    status: String
-    aeroline: String
-    captain: String
-    subCaptain: String
+type Country {
+    idCountry: ID!
+    name: String!
+    continent: String!
+    language: String!
+}
+
+type Luggage {
+    idLuggage: ID!
+    passenger: ID!
+    type: String!
+    heightCm: Float!
+    weightKg: Float!
+    widthCm: Float!
+    extraFree: Float!
+}
+
+type Payment {
+    id: ID!
+    booking: ID!
+    amount: Float!
+    paymentDate: String!
+    paymentStatus: String!
 }
 
 type Plane {
     idPlane: ID!
-    model: String
-    capacity: Int
-}
-
-type Passenger {
-    idPassenger: ID!
-    seat: ID!
-    name: String
-    lastname: String
-    birthday: String
-    documentId: String
-    passportNumber: String
+    model: String!
+    manufacturer: String!
+    capacityEconomy: Int!
+    capacityBusiness: Int!
+    capacityFirstClass: Int!
+    dateManufactured: String!
+    lastMaintenanceDate: String!
+    registrationNumber: String!
+    fuelCapacity: Float!
 }
 
 type Seat {
     idSeat: ID!
+    flight: ID!
+    seatNumber: String!
+    isReserved: Boolean!
+    price: Float!
+    seatClass: String!
+}
+
+type City {
+    idCity: ID!
+    name: String!
+    countryId: ID!
+    timezone: String!
+    latitude: Float!
+    longitude: Float!
+}
+
+type Flight {
     idFlight: ID!
-    seatType: String
-    price: Float
-    available: Boolean
+    flightNumber: String!
+    idPlane: ID!
+    idDepartureCity: ID!
+    idArrivalCity: ID!
+    departureTime: String!
+    arrivalTime: String!
+    status: String!
+    flightDuration: String!
+    distanceKm: Float!
+    seats: Int!
+    idCaptain: ID!
+    idSubCaptain: ID!
+    priceEconomy: Float!
+    priceBusiness: Float!
+    priceFirstClass: Float!
 }
 
-type User {
+type Passenger {
+    idPassenger: ID!
+    idSeat: ID!
+    firstName: String!
+    lastName: String!
+    dateOfBirth: String!
+    documentId: String!
+    passportNumber: String!
+    nationality: String!
+    specialRequests: String
+    luggageIncluded: Boolean!
+}
+
+type Pilot {
+    idPilot: ID!
+    firstName: String!
+    lastName: String!
+    licenseNumber: String!
+    dateOfBirth: String!
+    nationality: String!
+    rank: String!
+    hoursFlown: Float!
+    employeeDate: String!
+    status: String!
+    homeBase: String!
+    lastMedicalCheck: String!
+}
+
+type Scale {
+    idScale: ID!
+    flight: ID!
+    idCity: ID!
+    arrivalTime: String!
+    departureTime: String!
+    layoverDuration: String!
+}
+
+type Users {
     idUser: ID!
-    name: String
-    lastname: String
-    email: String
-    genrer: String
-    birthday: String
-    country: String
-    city: String
-    documentId: String
-    passportNumber: String
-    registerDate: String
+    firstName: String!
+    lastName: String!
+    phoneNumber: String!
+    email: String!
+    nationality: String!
+    dateOfBirth: String!
+    documentId: String!
+    passportNumber: String!
+    registrationDate: String!
+    flyerNumber: Int!
+    address: String!
+    userType: String!
+    passwordHash: String!
 }
-
