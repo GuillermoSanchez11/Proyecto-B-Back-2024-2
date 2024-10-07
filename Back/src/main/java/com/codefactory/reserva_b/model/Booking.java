@@ -1,8 +1,12 @@
 package com.codefactory.reserva_b.model;
 import jakarta.persistence.*;
+import org.apache.catalina.User;
+
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -12,14 +16,18 @@ public class Booking implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_booking")
-    private Long idBooking;
+    @Column(name = "id_booking", nullable = false)
+    private BigInteger idBooking;
 
     @Column(name = "id_flight", nullable = false)
-    private Long flight;  // Relación con Passenger
+    private BigInteger flight;  // Relación con Passenger
 
-    @Column(name = "id_user", nullable = false) // Corregido "id_uservarchar" a "id_user"
-    private Long idUser;
+    @Column(name = "id_user", nullable = false)
+    private BigInteger idUser;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = false, insertable=false, updatable=false)
+    private Users user;
 
     @Column(name = "booking_date", nullable = false)
     private LocalDateTime bookingDate;
@@ -27,47 +35,55 @@ public class Booking implements Serializable {
     @Column(name = "booking_status", nullable = false)
     private String bookingStatus;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+    @JoinTable(name = "booking_passenger", joinColumns = @JoinColumn(name = "id_booking"), inverseJoinColumns = @JoinColumn(name = "id_passenger"))
+    private List<Passenger> passengers;
 
     // Constructor por defecto
     public Booking() {
     }
 
     // Constructor con todos los campos
-    public Booking(Long idBooking, Long flight, Long idUser, LocalDateTime bookingDate,
+    public Booking(BigInteger idBooking, BigInteger flight, BigInteger idUser, LocalDateTime bookingDate,
                    String bookingStatus) {
         this.idBooking = idBooking;
         this.flight = flight;
         this.idUser = idUser;
         this.bookingDate = bookingDate;
         this.bookingStatus = bookingStatus;
-
     }
-
     // Getters y Setters
 
 
-    public Long getIdBooking() {
+    public BigInteger getIdBooking() {
         return idBooking;
     }
 
-    public void setIdBooking(Long idBooking) {
+    public void setIdBooking(BigInteger idBooking) {
         this.idBooking = idBooking;
     }
 
-    public Long getFlight() {
+    public BigInteger getFlight() {
         return flight;
     }
 
-    public void setFlight(Long flight) {
+    public void setFlight(BigInteger flight) {
         this.flight = flight;
     }
 
-    public Long getIdUser() {
+    public BigInteger getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Long idUser) {
+    public void setIdUser(BigInteger idUser) {
         this.idUser = idUser;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+    public void setUser(Users user) {
+        this.user = user;
     }
 
     public LocalDateTime getBookingDate() {
@@ -84,6 +100,13 @@ public class Booking implements Serializable {
 
     public void setBookingStatus(String bookingStatus) {
         this.bookingStatus = bookingStatus;
+    }
+
+    public List<Passenger> getPassengers() {
+        return passengers;
+    }
+    public void setPassengers(List<Passenger> passengers) {
+        this.passengers = passengers;
     }
 
     // equals, hashCode y toString
@@ -104,7 +127,6 @@ public class Booking implements Serializable {
         return "Booking{" +
                 "idBooking=" + idBooking +
                 ", flight=" + flight +
-                ", idUser=" + idUser +
                 ", bookingDate=" + bookingDate +
                 ", bookingStatus='" + bookingStatus + '\'' +
 

@@ -1,6 +1,7 @@
 package com.codefactory.reserva_b.model;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Objects;
 
 @Entity
@@ -10,10 +11,10 @@ public class Seat implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_seat")
-    private Long idSeat;
+    private BigInteger idSeat;
 
     @Column(name = "id_flight", nullable = false)
-    private Long flight;  // Relación con Flight
+    private BigInteger idFlight;  // Relación con Flight
 
     @Column(name = "seat_number", nullable = false)
     private String seatNumber;
@@ -28,10 +29,10 @@ public class Seat implements Serializable {
     private String seatClass;
 
     // Constructor
-    public Seat(Long idSeat, Long flight, String seatNumber, Boolean isReserved,
+    public Seat(BigInteger idSeat, BigInteger idFlight, String seatNumber, Boolean isReserved,
                 Double price, String seatClass) {
         this.idSeat = idSeat;
-        this.flight = flight;
+        this.idFlight = idFlight;
         this.seatNumber = seatNumber;
         this.isReserved = isReserved;
         this.price = price;
@@ -42,20 +43,20 @@ public class Seat implements Serializable {
 
     }
 
-    public Long getIdSeat() {
+    public BigInteger getIdSeat() {
         return idSeat;
     }
 
-    public void setIdSeat(Long idSeat) {
+    public void setIdSeat(BigInteger idSeat) {
         this.idSeat = idSeat;
     }
 
-    public Long getFlight() {
-        return flight;
+    public BigInteger getFlight() {
+        return idFlight;
     }
 
-    public void setFlight(Long flight) {
-        this.flight = flight;
+    public void setFlight(BigInteger idFlight) {
+        this.idFlight = idFlight;
     }
 
     public String getSeatNumber() {
@@ -107,7 +108,7 @@ public class Seat implements Serializable {
     public String toString() {
         return "Seat{" +
                 "idSeat=" + idSeat +
-                ", flight=" + flight +
+                ", flight=" + idFlight +
                 ", seatNumber='" + seatNumber + '\'' +
                 ", isReserved=" + isReserved +
                 ", price=" + price +

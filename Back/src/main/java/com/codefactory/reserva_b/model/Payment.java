@@ -2,6 +2,7 @@ package com.codefactory.reserva_b.model;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -11,11 +12,11 @@ public class Payment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "id_payment")
+    private BigInteger idPayment;
 
     @Column(name = "id_booking", nullable = false)
-    private Long booking;  // Relación con Booking
+    private BigInteger booking;  // Relación con Booking
 
     @Column(name = "amount", nullable = false)
     private BigDecimal amount;
@@ -27,9 +28,9 @@ public class Payment implements Serializable {
     private String paymentStatus;
 
     // Constructor
-    public Payment(Long id, Long booking, BigDecimal amount, LocalDateTime paymentDate,
+    public Payment(BigInteger idPayment, BigInteger booking, BigDecimal amount, LocalDateTime paymentDate,
                    String paymentStatus) {
-        this.id = id;
+        this.idPayment = idPayment;
         this.booking = booking;
         this.amount = amount;
         this.paymentDate = paymentDate;
@@ -41,19 +42,19 @@ public class Payment implements Serializable {
     }
     // Getters y Setters
 
-    public Long getId() {
-        return id;
+    public BigInteger getId() {
+        return idPayment;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(BigInteger idPayment) {
+        this.idPayment = idPayment;
     }
 
-    public Long getBooking() {
+    public BigInteger getBooking() {
         return booking;
     }
 
-    public void setBooking(Long booking) {
+    public void setBooking(BigInteger booking) {
         this.booking = booking;
     }
 
@@ -86,18 +87,18 @@ public class Payment implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Payment payment)) return false;
-        return Objects.equals(id, payment.id);
+        return Objects.equals(idPayment, payment.idPayment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(idPayment);
     }
 
     @Override
     public String toString() {
         return "Payments{" +
-                "id=" + id +
+                "id=" + idPayment +
                 ", booking=" + booking +
                 ", amount=" + amount +
                 ", paymentDate=" + paymentDate +

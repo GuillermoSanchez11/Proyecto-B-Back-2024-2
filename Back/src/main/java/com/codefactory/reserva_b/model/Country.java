@@ -3,6 +3,7 @@ package com.codefactory.reserva_b.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +13,7 @@ public class Country implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_city")
-    private Long idCountry;
+    private BigInteger idCountry;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -24,7 +25,7 @@ public class Country implements Serializable {
     private String language;
 
     // Constructor
-    public Country(Long idCountry, String name, String continent, String language) {
+    public Country(BigInteger idCountry, String name, String continent, String language) {
         this.idCountry = idCountry;
         this.name = name;
         this.continent = continent;
@@ -38,11 +39,11 @@ public class Country implements Serializable {
     // Getters y Setters
 
 
-    public Long getIdCountry() {
+    public BigInteger getIdCountry() {
         return idCountry;
     }
 
-    public void setIdCountry(Long idCountry) {
+    public void setIdCountry(BigInteger idCountry) {
         this.idCountry = idCountry;
     }
 

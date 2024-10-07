@@ -1,6 +1,7 @@
 package com.codefactory.reserva_b.model;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Objects;
 
 @Entity
@@ -10,10 +11,10 @@ public class Luggage implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_luggage")
-    private Long idLuggage;
+    private BigInteger idLuggage;
 
     @Column(name = "id_passenger", nullable = false)
-    private Long passenger;  // Relación con Passenger
+    private BigInteger idPassenger;  // Relación con Passenger
 
     @Column(name = "type", nullable = false)
     private String type;
@@ -31,10 +32,10 @@ public class Luggage implements Serializable {
     private Double extraFree;
 
     // Constructor
-    public Luggage(Long idLuggage, Long passenger, String type, Double heightCm,
+    public Luggage(BigInteger idLuggage, BigInteger idPassenger, String type, Double heightCm,
                    Double weightKg, Double widthCm, Double extraFree) {
         this.idLuggage = idLuggage;
-        this.passenger = passenger;
+        this.idPassenger = idPassenger;
         this.type = type;
         this.heightCm = heightCm;
         this.weightKg = weightKg;
@@ -49,20 +50,20 @@ public class Luggage implements Serializable {
 
     // Getters y Setters
 
-    public Long getIdLuggage() {
+    public BigInteger getIdLuggage() {
         return idLuggage;
     }
 
-    public void setIdLuggage(Long idLuggage) {
+    public void setIdLuggage(BigInteger idLuggage) {
         this.idLuggage = idLuggage;
     }
 
-    public Long  getPassenger() {
-        return passenger;
+    public BigInteger  getIdPassenger() {
+        return idPassenger;
     }
 
-    public void setPassenger(Long passenger) {
-        this.passenger = passenger;
+    public void setIdPassenger(BigInteger idPassenger) {
+        this.idPassenger = idPassenger;
     }
 
     public String getType() {
@@ -122,7 +123,7 @@ public class Luggage implements Serializable {
     public String toString() {
         return "Luggage{" +
                 "idLuggage=" + idLuggage +
-                ", passenger=" + passenger +
+                ", passenger=" + idPassenger +
                 ", type='" + type + '\'' +
                 ", heightCm=" + heightCm +
                 ", weightKg=" + weightKg +

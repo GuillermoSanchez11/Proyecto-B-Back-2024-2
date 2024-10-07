@@ -3,6 +3,7 @@ package com.codefactory.reserva_b.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -13,7 +14,7 @@ public class Pilot implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pilot")
-    private Long idPilot;
+    private BigInteger idPilot;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -49,7 +50,7 @@ public class Pilot implements Serializable {
     private LocalDate lastMedicalCheck;
 
     // Constructor
-    public Pilot(Long idPilot, String firstName, String lastName, String licenseNumber,
+    public Pilot(BigInteger idPilot, String firstName, String lastName, String licenseNumber,
                  LocalDate dateOfBirth, String nationality, String rank,
                  Double hoursFlown, LocalDate employeeDate, String status,
                  String homeBase, LocalDate lastMedicalCheck) {
@@ -74,11 +75,11 @@ public class Pilot implements Serializable {
 
     // Getters y Setters
 
-    public Long getIdPilot() {
+    public BigInteger getIdPilot() {
         return idPilot;
     }
 
-    public void setIdPilot(Long idPilot) {
+    public void setIdPilot(BigInteger idPilot) {
         this.idPilot = idPilot;
     }
 

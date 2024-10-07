@@ -2,9 +2,9 @@ package com.codefactory.reserva_b.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -12,8 +12,8 @@ public class Users implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_users")
-    private Long idUser;
+    @Column(name = "id_user")
+    private BigInteger idUser;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -59,7 +59,7 @@ public class Users implements Serializable {
     }
 
     // Constructor con todos los campos
-    public Users(Long idUser, String firstName, String lastName, String phoneNumber, String email,
+    public Users(BigInteger idUser, String firstName, String lastName, String phoneNumber, String email,
                  String nationality, LocalDate dateOfBirth, String documentId, String passportNumber,
                  LocalDate registrationDate, Long flyerNumber, String address, String userType, String passwordHash) {
         this.idUser = idUser;
@@ -81,11 +81,11 @@ public class Users implements Serializable {
     // Getters y Setters
 
 
-    public Long getIdUser() {
+    public BigInteger getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Long idUser) {
+    public void setIdUser(BigInteger idUser) {
         this.idUser = idUser;
     }
 

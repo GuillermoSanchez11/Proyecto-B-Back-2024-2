@@ -3,6 +3,7 @@ package com.codefactory.reserva_b.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -13,13 +14,13 @@ public class City implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_city")
-    private Long idCity;
+    private BigInteger idCity;
 
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "country_id", nullable = false)
-    private Long countryId;
+    private BigInteger countryId;
 
     @Column(name = "timezone", nullable = false)
     private String timezone;
@@ -31,7 +32,7 @@ public class City implements Serializable {
     private Double longitude;
 
     // Constructor
-    public City(Long idCity, String name, Long countryId, String timezone,
+    public City(BigInteger idCity, String name, BigInteger countryId, String timezone,
                 Double latitude, Double longitude) {
         this.idCity = idCity;
         this.name = name;
@@ -47,11 +48,11 @@ public class City implements Serializable {
     // Getters y Setters
 
 
-    public Long getIdCity() {
+    public BigInteger getIdCity() {
         return idCity;
     }
 
-    public void setIdCity(Long idCity) {
+    public void setIdCity(BigInteger idCity) {
         this.idCity = idCity;
     }
 
@@ -63,11 +64,11 @@ public class City implements Serializable {
         this.name = name;
     }
 
-    public Long getCountryId() {
+    public BigInteger getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(Long countryId) {
+    public void setCountryId(BigInteger countryId) {
         this.countryId = countryId;
     }
 

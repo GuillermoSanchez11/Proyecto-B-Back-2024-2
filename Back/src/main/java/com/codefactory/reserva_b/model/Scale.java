@@ -3,6 +3,7 @@ package com.codefactory.reserva_b.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
@@ -15,13 +16,13 @@ public class Scale implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_scale")
-    private Long idScale;
+    private BigInteger idScale;
 
     @Column(name = "id_flight", nullable = false)
-    private Long flight;  // Relación con Passenger
+    private BigInteger flight;  // Relación con Passenger
 
     @Column(name = "id_city", nullable = false)
-    private Long idCity;
+    private BigInteger idCity;
 
     @Column(name = "arrival_time", nullable = false)
     private LocalDateTime arrivalTime;
@@ -33,7 +34,7 @@ public class Scale implements Serializable {
     private LocalTime layoverDuration;
 
     // Constructor
-    public Scale(Long idScale, Long flight, Long idCity, LocalDateTime arrivalTime,
+    public Scale(BigInteger idScale, BigInteger flight, BigInteger idCity, LocalDateTime arrivalTime,
                  LocalDateTime departureTime, LocalTime layoverDuration) {
         this.idScale = idScale;
         this.flight = flight;
@@ -50,27 +51,27 @@ public class Scale implements Serializable {
     // Getters y Setters
 
 
-    public Long getIdScale() {
+    public BigInteger getIdScale() {
         return idScale;
     }
 
-    public void setIdScale(Long idScale) {
+    public void setIdScale(BigInteger idScale) {
         this.idScale = idScale;
     }
 
-    public Long getFlight() {
+    public BigInteger getFlight() {
         return flight;
     }
 
-    public void setFlight(Long flight) {
+    public void setFlight(BigInteger flight) {
         this.flight = flight;
     }
 
-    public Long getIdCity() {
+    public BigInteger getIdCity() {
         return idCity;
     }
 
-    public void setIdCity(Long idCity) {
+    public void setIdCity(BigInteger idCity) {
         this.idCity = idCity;
     }
 

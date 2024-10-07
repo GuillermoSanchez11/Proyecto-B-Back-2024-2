@@ -1,6 +1,7 @@
 package com.codefactory.reserva_b.model;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -11,19 +12,19 @@ public class Flight implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_flight")
-    private Long idFlight;
+    private BigInteger idFlight;
 
     @Column(name = "flight_number", nullable = false)
     private Long flightNumber;
 
     @Column(name = "id_plane", nullable = false)
-    private Long idPlane;
+    private BigInteger idPlane;
 
     @Column(name = "id_departure_city", nullable = false)
-    private Long idDepartureCity;
+    private BigInteger idDepartureCity;
 
     @Column(name = "id_arrival_city", nullable = false)
-    private Long idArrivalCity;
+    private BigInteger idArrivalCity;
 
     @Column(name = "departure_time", nullable = false)
     private LocalDateTime departureTime;
@@ -44,10 +45,10 @@ public class Flight implements Serializable {
     private Integer seats;
 
     @Column(name = "id_captain", nullable = false)
-    private Long idCaptain;
+    private BigInteger idCaptain;
 
     @Column(name = "id_subcaptain", nullable = false)
-    private Long idSubCaptain;
+    private BigInteger idSubCaptain;
 
     @Column(name = "price_economy", nullable = false)
     private Double priceEconomy;
@@ -59,10 +60,10 @@ public class Flight implements Serializable {
     private Double priceFirstClass;
 
     // Constructor
-    public Flight(Long idFlight, Long flightNumber, Long idPlane, Long idDepartureCity,
-                  Long idArrivalCity, LocalDateTime departureTime, LocalDateTime arrivalTime,
+    public Flight(BigInteger idFlight, Long flightNumber, BigInteger idPlane, BigInteger idDepartureCity,
+                  BigInteger idArrivalCity, LocalDateTime departureTime, LocalDateTime arrivalTime,
                   String status, String flightDuration, Double distanceKm,
-                  Integer seats, Long idCaptain, Long idSubCaptain,
+                  Integer seats, BigInteger idCaptain, BigInteger idSubCaptain,
                   Double priceEconomy, Double priceBusiness, Double priceFirstClass) {
         this.idFlight = idFlight;
         this.flightNumber = flightNumber;
@@ -88,11 +89,11 @@ public class Flight implements Serializable {
 
     // Getters y Setters
 
-    public Long getIdFlight() {
+    public BigInteger getIdFlight() {
         return idFlight;
     }
 
-    public void setIdFlight(Long idFlight) {
+    public void setIdFlight(BigInteger idFlight) {
         this.idFlight = idFlight;
     }
 
@@ -104,27 +105,27 @@ public class Flight implements Serializable {
         this.flightNumber = flightNumber;
     }
 
-    public Long getIdPlane() {
+    public BigInteger getIdPlane() {
         return idPlane;
     }
 
-    public void setIdPlane(Long idPlane) {
+    public void setIdPlane(BigInteger idPlane) {
         this.idPlane = idPlane;
     }
 
-    public Long getIdDepartureCity() {
+    public BigInteger getIdDepartureCity() {
         return idDepartureCity;
     }
 
-    public void setIdDepartureCity(Long idDepartureCity) {
+    public void setIdDepartureCity(BigInteger idDepartureCity) {
         this.idDepartureCity = idDepartureCity;
     }
 
-    public Long getIdArrivalCity() {
+    public BigInteger getIdArrivalCity() {
         return idArrivalCity;
     }
 
-    public void setIdArrivalCity(Long idArrivalCity) {
+    public void setIdArrivalCity(BigInteger idArrivalCity) {
         this.idArrivalCity = idArrivalCity;
     }
 
@@ -176,19 +177,19 @@ public class Flight implements Serializable {
         this.seats = seats;
     }
 
-    public Long getIdCaptain() {
+    public BigInteger getIdCaptain() {
         return idCaptain;
     }
 
-    public void setIdCaptain(Long idCaptain) {
+    public void setIdCaptain(BigInteger idCaptain) {
         this.idCaptain = idCaptain;
     }
 
-    public Long getIdSubCaptain() {
+    public BigInteger getIdSubCaptain() {
         return idSubCaptain;
     }
 
-    public void setIdSubCaptain(Long idSubCaptain) {
+    public void setIdSubCaptain(BigInteger idSubCaptain) {
         this.idSubCaptain = idSubCaptain;
     }
 

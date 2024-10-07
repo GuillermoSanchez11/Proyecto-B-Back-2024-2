@@ -1,7 +1,9 @@
 package com.codefactory.reserva_b.model;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -12,10 +14,10 @@ public class Passenger implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_passenger")
-    private Long idPassenger;
+    private BigInteger idPassenger;
 
     @Column(name = "id_seat", nullable = false)
-    private Long idSeat;
+    private BigInteger idSeat;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -41,8 +43,11 @@ public class Passenger implements Serializable {
     @Column(name = "luggage_included", nullable = false)
     private Boolean luggageIncluded;
 
+    @OneToMany(mappedBy = "idPassenger", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Luggage> luggage;
+
     // Constructor
-    public Passenger(Long idPassenger, Long idSeat, String firstName, String lastName, LocalDate dateOfBirth,
+    public Passenger(BigInteger idPassenger, BigInteger idSeat, String firstName, String lastName, LocalDate dateOfBirth,
                      String documentId, String passportNumber, String nationality, String specialRequests,
                      Boolean luggageIncluded) {
         this.idPassenger = idPassenger;
@@ -63,19 +68,19 @@ public class Passenger implements Serializable {
 
     // Getters y Setters
 
-    public Long getIdPassenger() {
+    public BigInteger getIdPassenger() {
         return idPassenger;
     }
 
-    public void setIdPassenger(Long idPassenger) {
+    public void setIdPassenger(BigInteger idPassenger) {
         this.idPassenger = idPassenger;
     }
 
-    public Long getIdSeat() {
+    public BigInteger getIdSeat() {
         return idSeat;
     }
 
-    public void setIdSeat(Long idSeat) {
+    public void setIdSeat(BigInteger idSeat) {
         this.idSeat = idSeat;
     }
 
@@ -141,6 +146,14 @@ public class Passenger implements Serializable {
 
     public void setLuggageIncluded(Boolean luggageIncluded) {
         this.luggageIncluded = luggageIncluded;
+    }
+
+    public List<Luggage> getLuggage() {
+        return luggage;
+    }
+
+    public void setLuggage(List<Luggage> luggage) {
+        this.luggage = luggage;
     }
 
     // equals, hashCode y toString

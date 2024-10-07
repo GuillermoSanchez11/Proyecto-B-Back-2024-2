@@ -1,6 +1,7 @@
 package com.codefactory.reserva_b.model;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ public class Plane implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_plane")
-    private Long idPlane;
+    private BigInteger idPlane;
 
     @Column(name = "model", nullable = false)
     private String model;
@@ -41,7 +42,7 @@ public class Plane implements Serializable {
     private Double fuelCapacity;
 
     // Constructor
-    public Plane(Long idPlane, String model, String manufacturer, Long capacityEconomy,
+    public Plane(BigInteger idPlane, String model, String manufacturer, Long capacityEconomy,
                  Long capacityBusiness, Long capacityFirstClass, LocalDate dateManufactured,
                  LocalDate lastMaintenanceDate, String registrationNumber, Double fuelCapacity) {
         this.idPlane = idPlane;
@@ -63,11 +64,11 @@ public class Plane implements Serializable {
     // Getters y Setters
 
 
-    public Long getIdPlane() {
+    public BigInteger getIdPlane() {
         return idPlane;
     }
 
-    public void setIdPlane(Long idPlane) {
+    public void setIdPlane(BigInteger idPlane) {
         this.idPlane = idPlane;
     }
 
