@@ -19,6 +19,10 @@ public class Passenger implements Serializable {
     @Column(name = "id_seat", nullable = false)
     private BigInteger idSeat;
 
+    @ManyToOne
+    @JoinColumn(name = "id_seat", nullable = false, insertable=false, updatable=false)
+    private Seat seat;
+
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
@@ -154,6 +158,14 @@ public class Passenger implements Serializable {
 
     public void setLuggage(List<Luggage> luggage) {
         this.luggage = luggage;
+    }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
     }
 
     // equals, hashCode y toString

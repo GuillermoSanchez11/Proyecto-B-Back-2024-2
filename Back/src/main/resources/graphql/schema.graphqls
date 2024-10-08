@@ -22,16 +22,18 @@ type Mutation {
 
 type Booking {
     idBooking: ID!
-    flight: ID!
-    user: Users!
+    idFlight: ID!
+    flight: Flight!
     idUser: ID!
+    user: Users!
     bookingDate: String!
     bookingStatus: String!
     passengers: [Passenger]
+    payment: Payment
 }
 
 input BookingInput {
-    flight: ID!
+    idFlight: ID!
     idUser: ID!
     bookingDate: String!
     bookingStatus: String!
@@ -42,7 +44,7 @@ type Country {
     idCountry: ID!
     name: String!
     continent: String!
-    language: String!
+    language: String
 }
 
 type Luggage {
@@ -60,12 +62,12 @@ input LuggageInput {
     heightCm: Float!
     weightKg: Float!
     widthCm: Float!
-    extraFree: Float!
+    extraFree: Float
 }
 
 type Payment {
     idPayment: ID!
-    booking: ID!
+    idBooking: ID!
     amount: Float!
     paymentDate: String!
     paymentStatus: String!
@@ -97,6 +99,7 @@ type City {
     idCity: ID!
     name: String!
     countryId: ID!
+    country: Country!
     timezone: String!
     latitude: Float!
     longitude: Float!
@@ -106,8 +109,11 @@ type Flight {
     idFlight: ID!
     flightNumber: String!
     idPlane: ID!
+    plane: Plane!
     idDepartureCity: ID!
+    departureCity: City!
     idArrivalCity: ID!
+    arrivalCity: City!
     departureTime: String!
     arrivalTime: String!
     status: String!
@@ -115,7 +121,9 @@ type Flight {
     distanceKm: Float!
     seats: Int!
     idCaptain: ID!
-    idSubCaptain: ID!
+    captain: Pilot!
+    idSubCaptain: ID
+    subCaptain: Pilot
     priceEconomy: Float!
     priceBusiness: Float!
     priceFirstClass: Float!
@@ -124,6 +132,7 @@ type Flight {
 type Passenger {
     idPassenger: ID!
     idSeat: ID!
+    seat: Seat!
     firstName: String!
     lastName: String!
     dateOfBirth: String!
@@ -165,8 +174,9 @@ type Pilot {
 
 type Scale {
     idScale: ID!
-    flight: ID!
+    idFlight: ID!
     idCity: ID!
+    city: City!
     arrivalTime: String!
     departureTime: String!
     layoverDuration: String!

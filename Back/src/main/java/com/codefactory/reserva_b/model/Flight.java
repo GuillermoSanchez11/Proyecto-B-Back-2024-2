@@ -2,8 +2,8 @@ package com.codefactory.reserva_b.model;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,11 +20,23 @@ public class Flight implements Serializable {
     @Column(name = "id_plane", nullable = false)
     private BigInteger idPlane;
 
+    @ManyToOne
+    @JoinColumn(name = "id_plane", nullable = false, insertable=false, updatable=false)
+    private Plane plane;
+
     @Column(name = "id_departure_city", nullable = false)
     private BigInteger idDepartureCity;
 
+    @ManyToOne
+    @JoinColumn(name = "id_departure_city", nullable = false, insertable=false, updatable=false)
+    private City departureCity;
+
     @Column(name = "id_arrival_city", nullable = false)
     private BigInteger idArrivalCity;
+
+    @ManyToOne
+    @JoinColumn(name = "id_arrival_city", nullable = false, insertable=false, updatable=false)
+    private City arrivalCity;
 
     @Column(name = "departure_time", nullable = false)
     private LocalDateTime departureTime;
@@ -47,8 +59,16 @@ public class Flight implements Serializable {
     @Column(name = "id_captain", nullable = false)
     private BigInteger idCaptain;
 
+    @ManyToOne
+    @JoinColumn(name = "id_captain", nullable = false, insertable=false, updatable=false)
+    private Pilot captain;
+
     @Column(name = "id_subcaptain", nullable = false)
     private BigInteger idSubCaptain;
+
+    @ManyToOne
+    @JoinColumn(name = "id_subcaptain", nullable = false, insertable=false, updatable=false)
+    private Pilot subCaptain;
 
     @Column(name = "price_economy", nullable = false)
     private Double priceEconomy;
@@ -58,6 +78,9 @@ public class Flight implements Serializable {
 
     @Column(name = "price_first_class", nullable = false)
     private Double priceFirstClass;
+
+    @OneToMany(mappedBy = "idFlight", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Scale> scales;
 
     // Constructor
     public Flight(BigInteger idFlight, Long flightNumber, BigInteger idPlane, BigInteger idDepartureCity,
@@ -189,6 +212,22 @@ public class Flight implements Serializable {
         return idSubCaptain;
     }
 
+    public Pilot getCaptain() {
+        return captain;
+    }
+
+    public void setCaptain(Pilot captain) {
+        this.captain = captain;
+    }
+
+    public Pilot getSubCaptain() {
+        return subCaptain;
+    }
+
+    public void setSubCaptain(Pilot subCaptain) {
+        this.subCaptain = subCaptain;
+    }
+
     public void setIdSubCaptain(BigInteger idSubCaptain) {
         this.idSubCaptain = idSubCaptain;
     }
@@ -215,6 +254,38 @@ public class Flight implements Serializable {
 
     public void setPriceFirstClass(Double priceFirstClass) {
         this.priceFirstClass = priceFirstClass;
+    }
+
+    public Plane getPlane() {
+        return plane;
+    }
+
+    public void setPlane(Plane plane) {
+        this.plane = plane;
+    }
+
+    public City getDepartureCity() {
+        return departureCity;
+    }
+
+    public void setDepartureCity(City departureCity) {
+        this.departureCity = departureCity;
+    }
+
+    public City getArrivalCity() {
+        return arrivalCity;
+    }
+
+    public void setArrivalCity(City arrivalCity) {
+        this.arrivalCity = arrivalCity;
+    }
+
+    public List<Scale> getScales() {
+        return scales;
+    }
+
+    public void setScales(List<Scale> scales) {
+        this.scales = scales;
     }
 
     // equals, hashCode y toString

@@ -32,7 +32,7 @@ public class BookingService {
     public Booking addBooking(Booking booking) {
         Long bookingId = (Long) entityManager.createNativeQuery("INSERT INTO booking (id_flight, id_user, booking_date, booking_status) " +
                         "VALUES (?, ?, ?, ?) RETURNING id_booking")
-                .setParameter(1, booking.getFlight())
+                .setParameter(1, booking.getIdFlight())
                 .setParameter(2, booking.getIdUser())
                 .setParameter(3, booking.getBookingDate())
                 .setParameter(4, booking.getBookingStatus())

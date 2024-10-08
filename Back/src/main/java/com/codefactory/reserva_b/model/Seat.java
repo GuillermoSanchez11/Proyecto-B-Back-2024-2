@@ -14,7 +14,7 @@ public class Seat implements Serializable {
     private BigInteger idSeat;
 
     @Column(name = "id_flight", nullable = false)
-    private BigInteger idFlight;  // Relación con Flight
+    private BigInteger idFlight;
 
     @Column(name = "seat_number", nullable = false)
     private String seatNumber;

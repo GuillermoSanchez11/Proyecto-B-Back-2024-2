@@ -16,7 +16,7 @@ public class Payment implements Serializable {
     private BigInteger idPayment;
 
     @Column(name = "id_booking", nullable = false)
-    private BigInteger booking;  // Relación con Booking
+    private BigInteger idBooking;
 
     @Column(name = "amount", nullable = false)
     private BigDecimal amount;
@@ -28,10 +28,10 @@ public class Payment implements Serializable {
     private String paymentStatus;
 
     // Constructor
-    public Payment(BigInteger idPayment, BigInteger booking, BigDecimal amount, LocalDateTime paymentDate,
+    public Payment(BigInteger idPayment, BigInteger idBooking, BigDecimal amount, LocalDateTime paymentDate,
                    String paymentStatus) {
         this.idPayment = idPayment;
-        this.booking = booking;
+        this.idBooking = idBooking;
         this.amount = amount;
         this.paymentDate = paymentDate;
         this.paymentStatus = paymentStatus;
@@ -50,12 +50,12 @@ public class Payment implements Serializable {
         this.idPayment = idPayment;
     }
 
-    public BigInteger getBooking() {
-        return booking;
+    public BigInteger getIdBooking() {
+        return idBooking;
     }
 
-    public void setBooking(BigInteger booking) {
-        this.booking = booking;
+    public void setIdBooking(BigInteger idBooking) {
+        this.idBooking = idBooking;
     }
 
     public BigDecimal getAmount() {
@@ -99,7 +99,7 @@ public class Payment implements Serializable {
     public String toString() {
         return "Payments{" +
                 "id=" + idPayment +
-                ", booking=" + booking +
+                ", booking=" + idBooking +
                 ", amount=" + amount +
                 ", paymentDate=" + paymentDate +
                 ", paymentStatus='" + paymentStatus + '\'' +

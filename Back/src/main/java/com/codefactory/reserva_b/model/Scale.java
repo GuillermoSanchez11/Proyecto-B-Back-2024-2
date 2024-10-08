@@ -19,10 +19,14 @@ public class Scale implements Serializable {
     private BigInteger idScale;
 
     @Column(name = "id_flight", nullable = false)
-    private BigInteger flight;  // Relación con Passenger
+    private BigInteger idFlight;  // Relación con Passenger
 
     @Column(name = "id_city", nullable = false)
     private BigInteger idCity;
+
+    @ManyToOne
+    @JoinColumn(name = "id_city", nullable = false, insertable=false, updatable=false)
+    private City city;
 
     @Column(name = "arrival_time", nullable = false)
     private LocalDateTime arrivalTime;
@@ -34,10 +38,10 @@ public class Scale implements Serializable {
     private LocalTime layoverDuration;
 
     // Constructor
-    public Scale(BigInteger idScale, BigInteger flight, BigInteger idCity, LocalDateTime arrivalTime,
+    public Scale(BigInteger idScale, BigInteger idFlight, BigInteger idCity, LocalDateTime arrivalTime,
                  LocalDateTime departureTime, LocalTime layoverDuration) {
         this.idScale = idScale;
-        this.flight = flight;
+        this.idFlight = idFlight;
         this.idCity = idCity;
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
@@ -59,12 +63,12 @@ public class Scale implements Serializable {
         this.idScale = idScale;
     }
 
-    public BigInteger getFlight() {
-        return flight;
+    public BigInteger getIdFlight() {
+        return idFlight;
     }
 
-    public void setFlight(BigInteger flight) {
-        this.flight = flight;
+    public void setIdFlight(BigInteger idFlight) {
+        this.idFlight = idFlight;
     }
 
     public BigInteger getIdCity() {
@@ -99,6 +103,14 @@ public class Scale implements Serializable {
         this.layoverDuration = layoverDuration;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
     // equals, hashCode y toString
     @Override
     public boolean equals(Object o) {
@@ -116,7 +128,7 @@ public class Scale implements Serializable {
     public String toString() {
         return "Scale{" +
                 "idScale=" + idScale +
-                ", flight=" + flight +
+                ", flight=" + idFlight +
                 ", idCity=" + idCity +
                 ", arrivalTime=" + arrivalTime +
                 ", departureTime=" + departureTime +

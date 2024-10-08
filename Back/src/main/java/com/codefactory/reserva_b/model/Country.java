@@ -12,7 +12,7 @@ public class Country implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_city")
+    @Column(name = "id_country")
     private BigInteger idCountry;
 
     @Column(name = "name", nullable = false)

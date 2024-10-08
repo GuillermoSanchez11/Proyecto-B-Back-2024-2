@@ -20,7 +20,11 @@ public class Booking implements Serializable {
     private BigInteger idBooking;
 
     @Column(name = "id_flight", nullable = false)
-    private BigInteger flight;  // Relación con Passenger
+    private BigInteger idFlight;
+
+    @ManyToOne
+    @JoinColumn(name = "id_flight", nullable = false, insertable=false, updatable=false)
+    private Flight flight;
 
     @Column(name = "id_user", nullable = false)
     private BigInteger idUser;
@@ -39,6 +43,10 @@ public class Booking implements Serializable {
     @JoinTable(name = "booking_passenger", joinColumns = @JoinColumn(name = "id_booking"), inverseJoinColumns = @JoinColumn(name = "id_passenger"))
     private List<Passenger> passengers;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_booking")
+    private Payment payment;
+
     // Constructor por defecto
     public Booking() {
     }
@@ -47,7 +55,7 @@ public class Booking implements Serializable {
     public Booking(BigInteger idBooking, BigInteger flight, BigInteger idUser, LocalDateTime bookingDate,
                    String bookingStatus) {
         this.idBooking = idBooking;
-        this.flight = flight;
+        this.idFlight = idFlight;
         this.idUser = idUser;
         this.bookingDate = bookingDate;
         this.bookingStatus = bookingStatus;
@@ -63,12 +71,12 @@ public class Booking implements Serializable {
         this.idBooking = idBooking;
     }
 
-    public BigInteger getFlight() {
-        return flight;
+    public BigInteger getIdFlight() {
+        return idFlight;
     }
 
-    public void setFlight(BigInteger flight) {
-        this.flight = flight;
+    public void setIdFlight(BigInteger idFlight) {
+        this.idFlight = idFlight;
     }
 
     public BigInteger getIdUser() {
@@ -107,6 +115,14 @@ public class Booking implements Serializable {
     }
     public void setPassengers(List<Passenger> passengers) {
         this.passengers = passengers;
+    }
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 
     // equals, hashCode y toString

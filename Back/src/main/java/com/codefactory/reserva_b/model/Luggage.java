@@ -14,7 +14,7 @@ public class Luggage implements Serializable {
     private BigInteger idLuggage;
 
     @Column(name = "id_passenger", nullable = false)
-    private BigInteger idPassenger;  // Relación con Passenger
+    private BigInteger idPassenger;
 
     @Column(name = "type", nullable = false)
     private String type;

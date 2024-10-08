@@ -22,6 +22,10 @@ public class City implements Serializable {
     @Column(name = "country_id", nullable = false)
     private BigInteger countryId;
 
+    @ManyToOne
+    @JoinColumn(name = "country_id", nullable = false, insertable=false, updatable=false)
+    private Country country;
+
     @Column(name = "timezone", nullable = false)
     private String timezone;
 
@@ -94,6 +98,14 @@ public class City implements Serializable {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     // equals, hashCode y toString
