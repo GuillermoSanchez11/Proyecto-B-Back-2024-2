@@ -51,11 +51,11 @@ Este proyecto incluye la implementación de un sistema de gestión de vuelos con
 
 1. Clona el repositorio:
     ```sh
-    git clone <https://github.com/CodeFactory2024-2/Proyecto-B.git>
+    git clone https://github.com/CodeFactory2024-2/Proyecto-B.git
     ```
 2. Navega al directorio del proyecto:
     ```sh
-    git checkout <origin feature/flight-management>
+    git checkout origin feature/flight-management
     ```
 3. Compila y ejecuta el proyecto usando Maven:
     ```sh
