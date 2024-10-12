@@ -114,7 +114,7 @@ CREATE TABLE "flight"(
 );
 ALTER TABLE
     "flight" ADD PRIMARY KEY("id_flight");
-CREATE TABLE "booking"(
+CREATE TABLE "bookingEntityImpl"(
                           "id_booking" bigserial NOT NULL,
                           "id_flight" BIGINT NOT NULL,
                           "id_user" BIGINT NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE "booking"(
                           "booking_status" VARCHAR(255) NOT NULL
 );
 ALTER TABLE
-    "booking" ADD PRIMARY KEY("id_booking");
+    "bookingEntityImpl" ADD PRIMARY KEY("id_booking");
 CREATE TABLE "passenger"(
                             "id_passenger" bigserial NOT NULL,
                             "id_seat" BIGINT NOT NULL,
@@ -155,7 +155,7 @@ CREATE TABLE "scale"(
 ALTER TABLE
     "scale" ADD PRIMARY KEY("id_scale");
 ALTER TABLE
-    "booking_passenger" ADD CONSTRAINT "booking_passenger_id_booking_foreign" FOREIGN KEY("id_booking") REFERENCES "booking"("id_booking");
+    "booking_passenger" ADD CONSTRAINT "booking_passenger_id_booking_foreign" FOREIGN KEY("id_booking") REFERENCES "bookingEntityImpl"("id_booking");
 ALTER TABLE
     "scale" ADD CONSTRAINT "scale_id_flight_foreign" FOREIGN KEY("id_flight") REFERENCES "flight"("id_flight");
 ALTER TABLE
@@ -171,7 +171,7 @@ ALTER TABLE
 ALTER TABLE
     "scale" ADD CONSTRAINT "scale_id_city_foreign" FOREIGN KEY("id_city") REFERENCES "city"("id_city");
 ALTER TABLE
-    "booking" ADD CONSTRAINT "booking_id_flight_foreign" FOREIGN KEY("id_flight") REFERENCES "flight"("id_flight");
+    "bookingEntityImpl" ADD CONSTRAINT "booking_id_flight_foreign" FOREIGN KEY("id_flight") REFERENCES "flight"("id_flight");
 ALTER TABLE
     "passenger" ADD CONSTRAINT "passenger_id_seat_foreign" FOREIGN KEY("id_seat") REFERENCES "seat"("id_seat");
 ALTER TABLE
@@ -179,11 +179,11 @@ ALTER TABLE
 ALTER TABLE
     "flight" ADD CONSTRAINT "flight_id_subcaptain_foreign" FOREIGN KEY("id_subcaptain") REFERENCES "pilot"("id_pilot");
 ALTER TABLE
-    "booking" ADD CONSTRAINT "booking_id_user_foreign" FOREIGN KEY("id_user") REFERENCES "users"("id_user");
+    "bookingEntityImpl" ADD CONSTRAINT "booking_id_user_foreign" FOREIGN KEY("id_user") REFERENCES "users"("id_user");
 ALTER TABLE
     "luggage" ADD CONSTRAINT "luggage_id_passenger_foreign" FOREIGN KEY("id_passenger") REFERENCES "passenger"("id_passenger");
 ALTER TABLE
-    "payment" ADD CONSTRAINT "payment_id_booking_foreign" FOREIGN KEY("id_booking") REFERENCES "booking"("id_booking");
+    "payment" ADD CONSTRAINT "payment_id_booking_foreign" FOREIGN KEY("id_booking") REFERENCES "bookingEntityImpl"("id_booking");
 ALTER TABLE
     "flight" ADD CONSTRAINT "flight_id_captain_foreign" FOREIGN KEY("id_captain") REFERENCES "pilot"("id_pilot");
 
@@ -225,7 +225,7 @@ INSERT INTO city (name, country_id, timezone, latitude, longitude)
 VALUES
     ('New York', 1, 'America/New_York', 40.7128, -74.0060),
     ('Toronto', 2, 'America/Toronto', 43.651070, -79.347015),
-    ('Mexico City', 3, 'America/Mexico_City', 19.4326, -99.1332),
+    ('Mexico CityEntityImpl', 3, 'America/Mexico_City', 19.4326, -99.1332),
     ('London', 4, 'Europe/London', 51.5074, -0.1278),
     ('Paris', 5, 'Europe/Paris', 48.8566, 2.3522);
 

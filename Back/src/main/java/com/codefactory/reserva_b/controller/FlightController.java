@@ -1,7 +1,7 @@
 package com.codefactory.reserva_b.controller;
 
-import com.codefactory.reserva_b.model.Flight;
-import com.codefactory.reserva_b.service.FlightService;
+import com.codefactory.reserva_b.entity.impl.FlightEntityImpl;
+import com.codefactory.reserva_b.service.impl.FlightServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,10 +13,10 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class FlightController {
     @Autowired
-    private FlightService flightService;
+    private FlightServiceImpl flightService;
 
     @QueryMapping()
-    public List<Flight> allFlights() {
+    public List<FlightEntityImpl> allFlights() {
         return flightService.getFlights();
     }
 }

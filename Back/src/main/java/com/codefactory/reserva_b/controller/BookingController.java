@@ -1,8 +1,7 @@
 package com.codefactory.reserva_b.controller;
 
-import com.codefactory.reserva_b.model.Booking;
-import com.codefactory.reserva_b.model.Passenger;
-import com.codefactory.reserva_b.service.BookingService;
+import com.codefactory.reserva_b.entity.impl.BookingEntityImpl;
+import com.codefactory.reserva_b.service.impl.BookingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -15,34 +14,30 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class BookingController {
     @Autowired
-    private BookingService bookingService;
+    private BookingServiceImpl bookingService;
 
     @QueryMapping()
-    public List<Booking> allBookings() {
-        return bookingService.getBookings();
+    public List<BookingEntityImpl> findAllBookings() {
+        return bookingService.findAllBookings();
     }
     @QueryMapping()
-    public Booking bookingByUserId(@Argument String idUser) {
-        return bookingService.getBookingByUserId(idUser);
+    public List<BookingEntityImpl> findBookingsByIdUser(@Argument String idUser) {
+        return bookingService.findBookingsByIdUser(idUser);
+    }
+    @QueryMapping()
+    public BookingEntityImpl findBookingsByIdBooking(@Argument String idBooking) {
+        return bookingService.findBookingByIdBooking(idBooking);
     }
     @MutationMapping()
-    public Booking addBooking(@Argument Booking booking) {
+    public BookingEntityImpl addBooking(@Argument BookingEntityImpl booking) {
         return bookingService.addBooking(booking);
     }
     @MutationMapping()
-    public List<Booking> deleteBooking(@Argument String idBooking) {
+    public List<BookingEntityImpl> deleteBooking(@Argument String idBooking) {
         return bookingService.deleteBooking(idBooking);
     }
     @MutationMapping()
-    public Booking addPassenger(@Argument Passenger passenger, @Argument String idBooking) {
-        return bookingService.addPassenger(passenger, idBooking);
-    }
-    @MutationMapping()
-    public Booking deletePassenger(@Argument String idPassenger, @Argument String idBooking) {
-        return bookingService.deletePassenger(idPassenger, idBooking);
-    }
-    @MutationMapping()
-    public Booking editBookingStatus(@Argument String bookingStatus, @Argument String idBooking) {
+    public BookingEntityImpl editBookingStatus(@Argument String bookingStatus, @Argument String idBooking) {
         return bookingService.editBookingStatus(bookingStatus, idBooking);
     }
 }

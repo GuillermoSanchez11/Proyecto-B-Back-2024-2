@@ -1,7 +1,7 @@
 package com.codefactory.reserva_b.controller;
 
-import com.codefactory.reserva_b.model.Seat;
-import com.codefactory.reserva_b.service.SeatService;
+import com.codefactory.reserva_b.entity.impl.SeatEntityImpl;
+import com.codefactory.reserva_b.service.impl.SeatServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -14,10 +14,10 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class SeatController {
     @Autowired
-    private SeatService seatService;
+    private SeatServiceImpl seatService;
 
     @QueryMapping()
-    public List<Seat> getAvailableSeats(@Argument String idFlight) {
+    public List<SeatEntityImpl> getAvailableSeats(@Argument String idFlight) {
         return seatService.getAvailableSeats(idFlight);
     }
 }

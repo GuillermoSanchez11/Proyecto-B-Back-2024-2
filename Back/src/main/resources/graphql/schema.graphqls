@@ -1,6 +1,9 @@
 type Query {
-    allBookings: [Booking]
-    bookingByUserId(idUser: ID!): Booking
+    findAllBookings: [Booking]
+    findBookingsByIdUser(idUser: ID!): [Booking]
+    findBookingsByIdBooking(idBooking: ID!): Booking
+
+
     allFlights: [Flight]
     getPassengerById(idPassenger: ID!): Passenger
     getAvailableSeats(idFlight: ID!): [Seat]
@@ -10,9 +13,12 @@ type Query {
 type Mutation {
     addBooking(booking: BookingInput!): Booking
     deleteBooking(idBooking: ID!): [Booking]
+    editBookingStatus(bookingStatus: String!, idBooking: ID!): Booking
+
+
+
     addPassenger(passenger: PassengerInput, idBooking: ID!): Booking
     deletePassenger(idPassenger: ID!, idBooking: ID!): Booking
-    editBookingStatus(bookingStatus: String!, idBooking: ID!): Booking
     editPassengerSeat(idPassenger: ID!, newIdSeat: ID!): Passenger
     editPassengerInfo(passenger: PassengerInput!): Booking
     editPassengerLuggage(idLuggage: ID!, luggage: LuggageInput): Passenger
