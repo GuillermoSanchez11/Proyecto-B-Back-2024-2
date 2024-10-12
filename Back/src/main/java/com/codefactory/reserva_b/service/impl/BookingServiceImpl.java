@@ -16,32 +16,33 @@ import java.util.List;
 public class BookingServiceImpl implements IBookingService {
     @Autowired
     private IBookingRepository bookingRepository;
-    @PersistenceContext
-    private EntityManager entityManager;
 
+    @Override
     public List<BookingEntityImpl> findAllBookings() {
         return bookingRepository.findAllBookings();
     }
 
+    @Override
     public List<BookingEntityImpl> findBookingsByIdUser(String idUser) {
         return bookingRepository.findBookingsByIdUser(new BigInteger(idUser));
     }
 
+    @Override
     public BookingEntityImpl findBookingByIdBooking(String idBooking) {
         return bookingRepository.findBookingByIdBooking(new BigInteger(idBooking));
     }
 
-    @Transactional
+    @Override
     public BookingEntityImpl addBooking(BookingEntityImpl booking) {
         return bookingRepository.createBooking(booking);
     }
 
-    @Transactional
+    @Override
     public List<BookingEntityImpl> deleteBooking(String idBooking) {
         return bookingRepository.deleteBooking(idBooking);
     }
 
-    @Transactional
+    @Override
     public BookingEntityImpl editBookingStatus(String bookingStatus, String idBooking) {
         return bookingRepository.editBookingStatus(bookingStatus, idBooking);
     }

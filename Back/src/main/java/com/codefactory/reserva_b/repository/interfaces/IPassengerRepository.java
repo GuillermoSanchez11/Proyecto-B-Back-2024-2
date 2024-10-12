@@ -5,10 +5,13 @@ import com.codefactory.reserva_b.entity.impl.PassengerEntityImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigInteger;
+import java.util.List;
 
-public interface IPassengerRepository extends JpaRepository<PassengerEntityImpl, BigInteger> {
-    PassengerEntityImpl findPassengerByIdPassenger(BigInteger id);
-    BookingEntityImpl createPassenger(PassengerEntityImpl passenger, String idBooking);
-    BookingEntityImpl deletePassenger(String idPassenger, String idBooking);
-
+public interface IPassengerRepository {
+    PassengerEntityImpl findPassengerByIdPassenger(BigInteger idPassenger);
+    List<PassengerEntityImpl> findPassengersByIdBooking(BigInteger idBooking);
+    PassengerEntityImpl addPassenger(PassengerEntityImpl passenger, BigInteger idBooking);
+    BookingEntityImpl deletePassenger(BigInteger idPassenger, BigInteger idBooking);
+    PassengerEntityImpl editPassengerSeat(BigInteger idPassenger, BigInteger idSeat, BigInteger idBooking);
+    PassengerEntityImpl editPassengerInfo(PassengerEntityImpl passenger);
 }

@@ -2,27 +2,22 @@ type Query {
     findAllBookings: [Booking]
     findBookingsByIdUser(idUser: ID!): [Booking]
     findBookingsByIdBooking(idBooking: ID!): Booking
-
-
-    allFlights: [Flight]
-    getPassengerById(idPassenger: ID!): Passenger
-    getAvailableSeats(idFlight: ID!): [Seat]
-    getPassengersByBookingId(idBooking: ID!): [Passenger]
+    findAllFlights: [Flight]
+    findAllAvailableSeats(idFlight: ID!): [Seat]
+    findPassengerByIdPassenger(idPassenger: ID!): Passenger
+    findPassengersByIdBooking(idBooking: ID!): [Passenger]
 }
 
 type Mutation {
     addBooking(booking: BookingInput!): Booking
     deleteBooking(idBooking: ID!): [Booking]
     editBookingStatus(bookingStatus: String!, idBooking: ID!): Booking
-
-
-
-    addPassenger(passenger: PassengerInput, idBooking: ID!): Booking
+    addPassenger(passenger: PassengerInput, idBooking: ID!): Passenger
     deletePassenger(idPassenger: ID!, idBooking: ID!): Booking
-    editPassengerSeat(idPassenger: ID!, newIdSeat: ID!): Passenger
-    editPassengerInfo(passenger: PassengerInput!): Booking
-    editPassengerLuggage(idLuggage: ID!, luggage: LuggageInput): Passenger
-    addLuggage(idPassenger: ID!, luggage: LuggageInput): Passenger
+    editPassengerSeat(idPassenger: ID!, idSeat: ID!, idBooking: ID!): Passenger
+    editPassengerInfo(passenger: PassengerInput!): Passenger
+    editLuggage(idLuggage: ID!, luggage: LuggageInput): Luggage
+    addLuggage(idPassenger: ID!, luggage: LuggageInput): Luggage
     deleteLuggage(idPassenger: ID!, idLuggage: ID!): Passenger
 }
 

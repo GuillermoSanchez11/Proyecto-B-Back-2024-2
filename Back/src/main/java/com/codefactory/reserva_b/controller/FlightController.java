@@ -16,7 +16,7 @@ public class FlightController {
     private FlightServiceImpl flightService;
 
     @QueryMapping()
-    public List<FlightEntityImpl> allFlights() {
-        return flightService.getFlights();
+    public List<FlightEntityImpl> findAllFlights() {
+        return flightService.findAllFlights();
     }
 }

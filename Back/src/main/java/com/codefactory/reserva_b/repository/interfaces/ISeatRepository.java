@@ -1,9 +1,10 @@
 package com.codefactory.reserva_b.repository.interfaces;
 
 import com.codefactory.reserva_b.entity.impl.SeatEntityImpl;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigInteger;
+import java.util.List;
 
-public interface ISeatRepository extends JpaRepository<SeatEntityImpl, BigInteger> {
+public interface ISeatRepository {
+    List<SeatEntityImpl> findAllAvailableSeats(BigInteger idFlight);
 }

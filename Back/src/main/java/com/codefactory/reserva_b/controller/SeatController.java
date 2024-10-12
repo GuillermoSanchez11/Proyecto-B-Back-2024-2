@@ -17,7 +17,7 @@ public class SeatController {
     private SeatServiceImpl seatService;
 
     @QueryMapping()
-    public List<SeatEntityImpl> getAvailableSeats(@Argument String idFlight) {
-        return seatService.getAvailableSeats(idFlight);
+    public List<SeatEntityImpl> findAllAvailableSeats(@Argument String idFlight) {
+        return seatService.findAllAvailableSeats(idFlight);
     }
 }

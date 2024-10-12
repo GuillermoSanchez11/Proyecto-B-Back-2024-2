@@ -1,9 +1,9 @@
-package com.codefactory.reserva_b.repository.interfaces;
+package com.codefactory.reserva_b.service.interfaces;
 
 import com.codefactory.reserva_b.entity.impl.FlightEntityImpl;
-import java.math.BigInteger;
+
 import java.util.List;
 
-public interface IFlightRepository {
+public interface IFlightService {
     List<FlightEntityImpl> findAllFlights();
 }
