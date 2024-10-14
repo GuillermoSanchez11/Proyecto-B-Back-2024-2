@@ -6,7 +6,7 @@ import com.codefactory.reserva_b.entity.impl.PassengerEntityImpl;
 import java.math.BigInteger;
 
 public interface ILuggageRepository {
-    LuggageEntityImpl addLuggage(BigInteger idPassenger, LuggageEntityImpl luggage);
+    LuggageEntityImpl createLuggage(LuggageEntityImpl luggage);
     LuggageEntityImpl editLuggage(BigInteger idLuggage, LuggageEntityImpl luggage);
     PassengerEntityImpl deleteLuggage(BigInteger idPassenger, BigInteger idLuggage);
 }

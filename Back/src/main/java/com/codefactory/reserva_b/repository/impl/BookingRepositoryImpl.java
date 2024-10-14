@@ -3,11 +3,12 @@ package com.codefactory.reserva_b.repository.impl;
 import com.codefactory.reserva_b.entity.impl.BookingEntityImpl;
 import com.codefactory.reserva_b.entity.impl.LuggageEntityImpl;
 import com.codefactory.reserva_b.entity.impl.PassengerEntityImpl;
-import com.codefactory.reserva_b.repository.interfaces.IBookingRepository;
+import com.codefactory.reserva_b.repository.interfaces.*;
+import com.codefactory.reserva_b.util.impl.SqlSentencesImpl;
+import com.codefactory.reserva_b.util.interfaces.ISqlSentences;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,50 +20,69 @@ public class BookingRepositoryImpl implements IBookingRepository  {
     @PersistenceContext
     private EntityManager entityManager;
 
+    private final ISqlSentences sentences = new SqlSentencesImpl();
+
     @Transactional
     @Override
     public List<BookingEntityImpl> findAllBookings() {
-        TypedQuery<BookingEntityImpl> query = entityManager.createQuery("SELECT b FROM BookingEntityImpl b", BookingEntityImpl.class);
-        return query.getResultList();
+        List<BookingEntityImpl> bookings = entityManager.createNativeQuery(sentences.selectAllBookingsSentence(), BookingEntityImpl.class)
+                .getResultList();
+        return bookings;
     }
 
     @Transactional
     @Override
     public List<BookingEntityImpl> findBookingsByIdUser(BigInteger idUser) {
-        TypedQuery<BookingEntityImpl> query = entityManager.createQuery(
-                "SELECT b FROM BookingEntityImpl b WHERE b.idUser = :idUser", BookingEntityImpl.class);
-        query.setParameter("idUser", idUser);
-        return query.getResultList();
+        List<BookingEntityImpl> bookings = entityManager.createNativeQuery(sentences.selectBookingByIdUserSentence(), BookingEntityImpl.class)
+                .setParameter(1, idUser)
+                .getResultList();
+        return bookings;
     }
 
     @Transactional
     @Override
-    public BookingEntityImpl findBookingByIdBooking(BigInteger bookingId) {
-        TypedQuery<BookingEntityImpl> query = entityManager.createQuery(
-                "SELECT b FROM BookingEntityImpl b WHERE b.idBooking = :idBooking", BookingEntityImpl.class);
-        query.setParameter("idBooking", bookingId);
-        return query.getSingleResult();
+    public BookingEntityImpl findBookingByIdBooking(BigInteger idBooking) {
+        BookingEntityImpl booking = (BookingEntityImpl) entityManager.createNativeQuery(sentences.selectBookingByIdBookingSentence(), BookingEntityImpl.class)
+                .setParameter(1, idBooking)
+                .getSingleResult();
+        return booking;
     }
 
     @Transactional
     @Override
     public BookingEntityImpl createBooking(BookingEntityImpl booking) {
-        entityManager.persist(booking);
+        Long bookingId = (Long) entityManager.createNativeQuery(sentences.insertBookingSentence())
+                .setParameter(1, booking.getIdFlight())
+                .setParameter(2, booking.getIdUser())
+                .setParameter(3, booking.getBookingDate())
+                .setParameter(4, booking.getBookingStatus())
+                .getSingleResult();
+
         if (booking.getPassengers() != null && !booking.getPassengers().isEmpty()) {
             for (PassengerEntityImpl passenger : booking.getPassengers()) {
-                entityManager.persist(passenger);
-                entityManager.createNativeQuery("INSERT INTO booking_passenger (id_booking, id_passenger) VALUES (?, ?)")
-                        .setParameter(1, booking.getIdBooking())
-                        .setParameter(2, passenger.getIdPassenger())
-                        .executeUpdate();
-                entityManager.createNativeQuery("UPDATE seat SET is_reserved = true WHERE id_seat = ?")
+                Long passengerId = (Long) entityManager.createNativeQuery(sentences.insertPassengerSentence())
                         .setParameter(1, passenger.getIdSeat())
+                        .setParameter(2, passenger.getFirstName())
+                        .setParameter(3, passenger.getLastName())
+                        .setParameter(4, passenger.getDateOfBirth())
+                        .setParameter(5, passenger.getDocumentId())
+                        .setParameter(6, passenger.getPassportNumber())
+                        .setParameter(7, passenger.getNationality())
+                        .setParameter(8, passenger.getSpecialRequests())
+                        .setParameter(9, passenger.getLuggageIncluded())
+                        .getSingleResult();
+                entityManager.createNativeQuery(sentences.insertBookingPassengerSentence())
+                        .setParameter(1, bookingId)
+                        .setParameter(2, passengerId)
+                        .executeUpdate();
+                entityManager.createNativeQuery(sentences.updateIsReservedSentence())
+                        .setParameter(1, true)
+                        .setParameter(2, passenger.getIdSeat())
                         .executeUpdate();
                 if (passenger.getLuggageIncluded() && passenger.getLuggage() != null) {
                     for (LuggageEntityImpl luggage : passenger.getLuggage()) {
-                        entityManager.createNativeQuery("INSERT INTO luggage (id_passenger, type, height_cm, weight_kg, width_cm, extra_free) " +
-                                        "VALUES (?, ?, ?, ?, ?, ?)")
-                                .setParameter(1, passenger.getIdPassenger())
+                        entityManager.createNativeQuery(sentences.insertLuggageSentence())
+                                .setParameter(1, passengerId)
                                 .setParameter(2, luggage.getType())
                                 .setParameter(3, luggage.getHeightCm())
                                 .setParameter(4, luggage.getWeightKg())
@@ -73,56 +93,55 @@ public class BookingRepositoryImpl implements IBookingRepository  {
                 }
             }
         }
-        return booking;
+        return findBookingByIdBooking(new BigInteger(String.valueOf(bookingId)));
     }
 
     @Transactional
     @Override
-    public List<BookingEntityImpl> deleteBooking(String idBooking) {
-        BookingEntityImpl booking = entityManager.find(BookingEntityImpl.class, Long.valueOf(idBooking));
+    public List<BookingEntityImpl> deleteBooking(BigInteger idBooking) {
+        BookingEntityImpl booking = findBookingByIdBooking(idBooking);
         if (booking == null) {
             throw new EntityNotFoundException("Booking not found with id: " + idBooking);
         }
-        List<Long> passengerIds = entityManager.createNativeQuery("SELECT id_passenger FROM booking_passenger WHERE id_booking = ?")
-                .setParameter(1, Long.valueOf(idBooking))
+        List<Long> passengerIds = entityManager.createNativeQuery(sentences.selectIdPassengersByIdBookingSentence())
+                .setParameter(1, booking.getIdBooking())
                 .getResultList();
         if (!passengerIds.isEmpty()) {
             for (Long passengerId : passengerIds) {
-                Long seatId = (Long) entityManager.createNativeQuery("SELECT id_seat FROM passenger WHERE id_passenger = ?")
+                Long seatId = (Long) entityManager.createNativeQuery(sentences.selectIdSeatFromIdPassenger())
                         .setParameter(1, passengerId)
                         .getSingleResult();
-                entityManager.createNativeQuery("UPDATE seat SET is_reserved = false WHERE id_seat = ?")
-                        .setParameter(1, seatId)
+                entityManager.createNativeQuery(sentences.updateIsReservedSentence())
+                        .setParameter(1, false)
+                        .setParameter(2, seatId)
                         .executeUpdate();
-                entityManager.createNativeQuery("DELETE FROM luggage WHERE id_passenger = ?")
+                entityManager.createNativeQuery(sentences.deleteLuggageSentence())
                         .setParameter(1, passengerId)
                         .executeUpdate();
-                entityManager.createNativeQuery("DELETE FROM passenger WHERE id_passenger = ?")
+                entityManager.createNativeQuery(sentences.deletePassengerSentence())
                         .setParameter(1, passengerId)
                         .executeUpdate();
             }
         }
-        entityManager.createNativeQuery("DELETE FROM booking_passenger WHERE id_booking = ?")
-                .setParameter(1, Long.valueOf(idBooking))
+        entityManager.createNativeQuery(sentences.deleteBookingPassengerSentence())
+                .setParameter(1, idBooking)
                 .executeUpdate();
-        entityManager.createNativeQuery("DELETE FROM booking WHERE id_booking = ?")
-                .setParameter(1, Long.valueOf(idBooking))
+        entityManager.createNativeQuery(sentences.deleteBookingSentence())
+                .setParameter(1, idBooking)
                 .executeUpdate();
-
         return findAllBookings();
     }
 
     @Transactional
     @Override
-    public BookingEntityImpl editBookingStatus(String bookingStatus, String idBooking) {
-        long bookingId = Long.parseLong(idBooking);
-        int updatedRows = entityManager.createNativeQuery("UPDATE booking SET booking_status = ? WHERE id_booking = ?")
+    public BookingEntityImpl editBookingStatus(String bookingStatus, BigInteger idBooking) {
+        int updatedRows = entityManager.createNativeQuery(sentences.updateBookingStatusSentence())
                 .setParameter(1, bookingStatus)
-                .setParameter(2, bookingId)
+                .setParameter(2, idBooking)
                 .executeUpdate();
         if (updatedRows == 0) {
             throw new EntityNotFoundException("Booking not found with id: " + idBooking);
         }
-        return findBookingByIdBooking(BigInteger.valueOf(bookingId));
+        return findBookingByIdBooking(idBooking);
     }
 }

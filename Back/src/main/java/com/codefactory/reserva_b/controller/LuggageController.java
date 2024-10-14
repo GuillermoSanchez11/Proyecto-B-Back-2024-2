@@ -17,8 +17,8 @@ public class LuggageController {
     private LuggageServiceImpl luggageService;
 
     @MutationMapping()
-    public LuggageEntityImpl addLuggage(@Argument String idPassenger, @Argument LuggageEntityImpl luggage){
-        return luggageService.addLuggage(idPassenger, luggage);
+    public LuggageEntityImpl addLuggage(@Argument LuggageEntityImpl luggage){
+        return luggageService.addLuggage(luggage);
     }
 
     @MutationMapping()

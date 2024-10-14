@@ -9,8 +9,8 @@ import java.util.List;
 public interface IBookingRepository {
     List<BookingEntityImpl> findAllBookings();
     List<BookingEntityImpl> findBookingsByIdUser(BigInteger idUser);
-    BookingEntityImpl findBookingByIdBooking(BigInteger bookingId);
+    BookingEntityImpl findBookingByIdBooking(BigInteger idBooking);
     BookingEntityImpl createBooking(BookingEntityImpl booking);
-    List<BookingEntityImpl> deleteBooking(String idBooking);
-    BookingEntityImpl editBookingStatus(String bookingStatus, String idBooking);
+    List<BookingEntityImpl> deleteBooking(BigInteger idBooking);
+    BookingEntityImpl editBookingStatus(String bookingStatus, BigInteger idBooking);
 }

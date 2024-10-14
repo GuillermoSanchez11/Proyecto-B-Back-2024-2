@@ -14,10 +14,10 @@ type Mutation {
     editBookingStatus(bookingStatus: String!, idBooking: ID!): Booking
     addPassenger(passenger: PassengerInput, idBooking: ID!): Passenger
     deletePassenger(idPassenger: ID!, idBooking: ID!): Booking
-    editPassengerSeat(idPassenger: ID!, idSeat: ID!, idBooking: ID!): Passenger
+    editPassengerSeat(idPassenger: ID!, idSeat: ID!): Passenger
     editPassengerInfo(passenger: PassengerInput!): Passenger
     editLuggage(idLuggage: ID!, luggage: LuggageInput): Luggage
-    addLuggage(idPassenger: ID!, luggage: LuggageInput): Luggage
+    addLuggage(luggage: LuggageInput): Luggage
     deleteLuggage(idPassenger: ID!, idLuggage: ID!): Passenger
 }
 
@@ -59,6 +59,7 @@ type Luggage {
 }
 
 input LuggageInput {
+    idPassenger: ID!
     type: String!
     heightCm: Float!
     weightKg: Float!

@@ -15,7 +15,7 @@ public class LuggageEntityImpl implements ILuggageEntity, IEntity, Serializable 
     @Column(name = "id_luggage")
     private BigInteger idLuggage;
 
-    @Column(name = "id_passenger", nullable = false)
+    @Column(name = "id_passenger")
     private BigInteger idPassenger;
 
     @Column(name = "type", nullable = false)

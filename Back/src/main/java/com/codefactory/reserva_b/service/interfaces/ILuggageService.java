@@ -4,7 +4,7 @@ import com.codefactory.reserva_b.entity.impl.LuggageEntityImpl;
 import com.codefactory.reserva_b.entity.impl.PassengerEntityImpl;
 
 public interface ILuggageService {
-    LuggageEntityImpl addLuggage(String idPassenger, LuggageEntityImpl luggage);
+    LuggageEntityImpl addLuggage(LuggageEntityImpl luggage);
     PassengerEntityImpl deleteLuggage(String idPassenger, String idLuggage);
     LuggageEntityImpl editLuggage(String idLuggage, LuggageEntityImpl luggage);
 }

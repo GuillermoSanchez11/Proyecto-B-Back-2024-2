@@ -114,15 +114,15 @@ CREATE TABLE "flight"(
 );
 ALTER TABLE
     "flight" ADD PRIMARY KEY("id_flight");
-CREATE TABLE "bookingEntityImpl"(
-                          "id_booking" bigserial NOT NULL,
-                          "id_flight" BIGINT NOT NULL,
-                          "id_user" BIGINT NOT NULL,
-                          "booking_date" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-                          "booking_status" VARCHAR(255) NOT NULL
+CREATE TABLE "booking"(
+                                    "id_booking" bigserial NOT NULL,
+                                    "id_flight" BIGINT NOT NULL,
+                                    "id_user" BIGINT NOT NULL,
+                                    "booking_date" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
+                                    "booking_status" VARCHAR(255) NOT NULL
 );
 ALTER TABLE
-    "bookingEntityImpl" ADD PRIMARY KEY("id_booking");
+    "booking" ADD PRIMARY KEY("id_booking");
 CREATE TABLE "passenger"(
                             "id_passenger" bigserial NOT NULL,
                             "id_seat" BIGINT NOT NULL,
@@ -155,7 +155,7 @@ CREATE TABLE "scale"(
 ALTER TABLE
     "scale" ADD PRIMARY KEY("id_scale");
 ALTER TABLE
-    "booking_passenger" ADD CONSTRAINT "booking_passenger_id_booking_foreign" FOREIGN KEY("id_booking") REFERENCES "bookingEntityImpl"("id_booking");
+    "booking_passenger" ADD CONSTRAINT "booking_passenger_id_booking_foreign" FOREIGN KEY("id_booking") REFERENCES "booking"("id_booking");
 ALTER TABLE
     "scale" ADD CONSTRAINT "scale_id_flight_foreign" FOREIGN KEY("id_flight") REFERENCES "flight"("id_flight");
 ALTER TABLE
@@ -171,7 +171,7 @@ ALTER TABLE
 ALTER TABLE
     "scale" ADD CONSTRAINT "scale_id_city_foreign" FOREIGN KEY("id_city") REFERENCES "city"("id_city");
 ALTER TABLE
-    "bookingEntityImpl" ADD CONSTRAINT "booking_id_flight_foreign" FOREIGN KEY("id_flight") REFERENCES "flight"("id_flight");
+    "booking" ADD CONSTRAINT "booking_id_flight_foreign" FOREIGN KEY("id_flight") REFERENCES "flight"("id_flight");
 ALTER TABLE
     "passenger" ADD CONSTRAINT "passenger_id_seat_foreign" FOREIGN KEY("id_seat") REFERENCES "seat"("id_seat");
 ALTER TABLE
@@ -179,11 +179,11 @@ ALTER TABLE
 ALTER TABLE
     "flight" ADD CONSTRAINT "flight_id_subcaptain_foreign" FOREIGN KEY("id_subcaptain") REFERENCES "pilot"("id_pilot");
 ALTER TABLE
-    "bookingEntityImpl" ADD CONSTRAINT "booking_id_user_foreign" FOREIGN KEY("id_user") REFERENCES "users"("id_user");
+    "booking" ADD CONSTRAINT "booking_id_user_foreign" FOREIGN KEY("id_user") REFERENCES "users"("id_user");
 ALTER TABLE
     "luggage" ADD CONSTRAINT "luggage_id_passenger_foreign" FOREIGN KEY("id_passenger") REFERENCES "passenger"("id_passenger");
 ALTER TABLE
-    "payment" ADD CONSTRAINT "payment_id_booking_foreign" FOREIGN KEY("id_booking") REFERENCES "bookingEntityImpl"("id_booking");
+    "payment" ADD CONSTRAINT "payment_id_booking_foreign" FOREIGN KEY("id_booking") REFERENCES "booking"("id_booking");
 ALTER TABLE
     "flight" ADD CONSTRAINT "flight_id_captain_foreign" FOREIGN KEY("id_captain") REFERENCES "pilot"("id_pilot");
 
@@ -225,7 +225,7 @@ INSERT INTO city (name, country_id, timezone, latitude, longitude)
 VALUES
     ('New York', 1, 'America/New_York', 40.7128, -74.0060),
     ('Toronto', 2, 'America/Toronto', 43.651070, -79.347015),
-    ('Mexico CityEntityImpl', 3, 'America/Mexico_City', 19.4326, -99.1332),
+    ('Mexico City', 3, 'America/Mexico_City', 19.4326, -99.1332),
     ('London', 4, 'Europe/London', 51.5074, -0.1278),
     ('Paris', 5, 'Europe/Paris', 48.8566, 2.3522);
 
@@ -240,22 +240,22 @@ VALUES
 
 INSERT INTO seat (id_flight, seat_number, is_reserved, price, seat_class)
 VALUES
-    (6, '1A', FALSE, 200.00, 'Economy'),
-    (6, '1B', FALSE, 200.00, 'Economy'),
-    (7, '2A', FALSE, 220.00, 'Business'),
-    (7, '2B', FALSE, 220.00, 'Business'),
-    (8, '3A', FALSE, 240.00, 'First Class'),
-    (8, '3B', FALSE, 240.00, 'First Class'),
-    (9, '4A', FALSE, 260.00, 'Economy'),
-    (9, '4B', FALSE, 260.00, 'Economy'),
-    (10, '5A', FALSE, 280.00, 'Business'),
-    (10, '5B', FALSE, 280.00, 'Business');
+    (1, '1A', FALSE, 200.00, 'Economy'),
+    (1, '1B', FALSE, 200.00, 'Economy'),
+    (1, '2A', FALSE, 220.00, 'Business'),
+    (2, '2B', FALSE, 220.00, 'Business'),
+    (2, '3A', FALSE, 240.00, 'First Class'),
+    (3, '3B', FALSE, 240.00, 'First Class'),
+    (4, '4A', FALSE, 260.00, 'Economy'),
+    (5, '4B', FALSE, 260.00, 'Economy'),
+    (5, '5A', FALSE, 280.00, 'Business'),
+    (5, '5B', FALSE, 280.00, 'Business');
 
 
 INSERT INTO scale (id_flight, id_city, arrival_time, departure_time, layover_duration)
 VALUES
-    (6, 3, '2024-10-10 13:00:00', '2024-10-10 14:00:00', '01:00:00'),
-    (9, 4, '2024-10-11 11:00:00', '2024-10-11 12:00:00', '01:00:00');
+    (2, 3, '2024-10-10 13:00:00', '2024-10-10 14:00:00', '01:00:00'),
+    (3, 4, '2024-10-11 11:00:00', '2024-10-11 12:00:00', '01:00:00');
 
 
 INSERT INTO users (first_name, last_name, phone_number, email, nationality, date_of_birth, document_id, passport_number, registration_date, flyer_number, address, user_type, password_hash)

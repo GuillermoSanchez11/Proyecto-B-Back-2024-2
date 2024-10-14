@@ -39,11 +39,11 @@ public class BookingServiceImpl implements IBookingService {
 
     @Override
     public List<BookingEntityImpl> deleteBooking(String idBooking) {
-        return bookingRepository.deleteBooking(idBooking);
+        return bookingRepository.deleteBooking(new BigInteger(idBooking));
     }
 
     @Override
     public BookingEntityImpl editBookingStatus(String bookingStatus, String idBooking) {
-        return bookingRepository.editBookingStatus(bookingStatus, idBooking);
+        return bookingRepository.editBookingStatus(bookingStatus, new BigInteger(idBooking));
     }
 }

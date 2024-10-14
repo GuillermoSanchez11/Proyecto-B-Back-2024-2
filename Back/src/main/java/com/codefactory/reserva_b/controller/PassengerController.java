@@ -41,8 +41,8 @@ public class PassengerController {
     }
 
     @MutationMapping()
-    public PassengerEntityImpl editPassengerSeat(@Argument String idPassenger, @Argument String idSeat, @Argument String idBooking) {
-        return passengerService.editPassengerSeat(idPassenger, idSeat, idBooking);
+    public PassengerEntityImpl editPassengerSeat(@Argument String idPassenger, @Argument String idSeat) {
+        return passengerService.editPassengerSeat(idPassenger, idSeat);
     }
 
     @MutationMapping()

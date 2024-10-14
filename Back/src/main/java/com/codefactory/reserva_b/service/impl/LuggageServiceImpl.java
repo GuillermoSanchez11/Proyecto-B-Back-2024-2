@@ -16,8 +16,8 @@ public class LuggageServiceImpl implements ILuggageService {
     private ILuggageRepository luggageRepository;
 
     @Override
-    public LuggageEntityImpl addLuggage(String idPassenger, LuggageEntityImpl luggage) {
-        return luggageRepository.addLuggage(new BigInteger(idPassenger), luggage);
+    public LuggageEntityImpl addLuggage(LuggageEntityImpl luggage) {
+        return luggageRepository.createLuggage(luggage);
     }
 
     @Override

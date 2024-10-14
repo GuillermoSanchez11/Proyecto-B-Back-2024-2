@@ -32,7 +32,7 @@ public class PassengerServiceImpl implements IPassengerService {
 
     @Override
     public PassengerEntityImpl addPassenger(PassengerEntityImpl passenger, String idBooking) {
-        return passengerRepository.addPassenger(passenger, new BigInteger(idBooking));
+        return passengerRepository.createPassenger(passenger, new BigInteger(idBooking));
     }
 
     @Override
@@ -41,8 +41,8 @@ public class PassengerServiceImpl implements IPassengerService {
     }
 
     @Override
-    public PassengerEntityImpl editPassengerSeat(String idPassenger, String idSeat, String idBooking) {
-        return passengerRepository.editPassengerSeat(new BigInteger(idPassenger), new BigInteger(idSeat), new BigInteger(idBooking));
+    public PassengerEntityImpl editPassengerSeat(String idPassenger, String idSeat) {
+        return passengerRepository.editPassengerSeat(new BigInteger(idPassenger), new BigInteger(idSeat));
     }
 
     @Override

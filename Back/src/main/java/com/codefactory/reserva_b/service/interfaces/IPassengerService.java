@@ -10,6 +10,6 @@ public interface IPassengerService {
     List<PassengerEntityImpl> findPassengersByIdBooking(String idBooking);
     PassengerEntityImpl addPassenger(PassengerEntityImpl passenger, String idBooking);
     BookingEntityImpl deletePassenger(String idPassenger, String idBooking);
-    PassengerEntityImpl editPassengerSeat(String idPassenger, String idSeat, String idBooking);
+    PassengerEntityImpl editPassengerSeat(String idPassenger, String idSeat);
     PassengerEntityImpl editPassengerInfo(PassengerEntityImpl passenger);
 }

@@ -10,8 +10,8 @@ import java.util.List;
 public interface IPassengerRepository {
     PassengerEntityImpl findPassengerByIdPassenger(BigInteger idPassenger);
     List<PassengerEntityImpl> findPassengersByIdBooking(BigInteger idBooking);
-    PassengerEntityImpl addPassenger(PassengerEntityImpl passenger, BigInteger idBooking);
+    PassengerEntityImpl createPassenger(PassengerEntityImpl passenger, BigInteger idBooking);
     BookingEntityImpl deletePassenger(BigInteger idPassenger, BigInteger idBooking);
-    PassengerEntityImpl editPassengerSeat(BigInteger idPassenger, BigInteger idSeat, BigInteger idBooking);
+    PassengerEntityImpl editPassengerSeat(BigInteger idPassenger, BigInteger idSeat);
     PassengerEntityImpl editPassengerInfo(PassengerEntityImpl passenger);
 }
