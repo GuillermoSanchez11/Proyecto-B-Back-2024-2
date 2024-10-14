@@ -3,6 +3,7 @@ package com.udea.vueloudea;
 import com.udea.vueloudea.controller.AirplaneTypeController;
 import com.udea.vueloudea.model.AirplaneType;
 import com.udea.vueloudea.service.AirplaneTypeService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -24,7 +25,8 @@ class AirplaneTypeControllerTests {
     @InjectMocks
     private AirplaneTypeController airplaneTypeController;
 
-    public AirplaneTypeControllerTests() {
+    @BeforeEach
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
