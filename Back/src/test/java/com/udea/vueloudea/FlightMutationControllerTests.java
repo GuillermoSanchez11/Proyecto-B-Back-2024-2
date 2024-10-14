@@ -13,41 +13,40 @@ import com.udea.vueloudea.service.AirplaneTypeService;
 import com.udea.vueloudea.service.StatusService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 class FlightMutationControllerTests {
 
-    @Mock
+    @MockBean
     private FlightService flightService;
 
-    @Mock
+    @MockBean
     private CityService cityService;
 
-    @Mock
+    @MockBean
     private FlightTypeService flightTypeService;
 
-    @Mock
+    @MockBean
     private AirplaneTypeService airplaneTypeService;
 
-    @Mock
+    @MockBean
     private StatusService statusService;
 
-    @InjectMocks
+    @Autowired
     private FlightMutationController flightMutationController;
 
     @BeforeEach
     void setUp() {
-        // No need to call MockitoAnnotations.openMocks(this) as @ExtendWith(MockitoExtension.class) handles it
+        // No need to call MockitoAnnotations.openMocks(this) as @SpringBootTest handles it
     }
 
     @Test

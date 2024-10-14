@@ -3,29 +3,34 @@ package com.udea.vueloudea;
 import com.udea.vueloudea.controller.FlightController;
 import com.udea.vueloudea.model.Flight;
 import com.udea.vueloudea.service.FlightService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 class FlightControllerTests {
 
-    @Mock
+    @MockBean
     private FlightService flightService;
 
     @InjectMocks
+    @Autowired
     private FlightController flightController;
 
-    public FlightControllerTests() {
+    @BeforeEach
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 

@@ -7,9 +7,10 @@ import com.udea.vueloudea.service.AirplaneTypeService;
 import com.udea.vueloudea.service.TypeService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,20 +18,18 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 class AirplaneTypeMutationControllerTests {
 
-    @Mock
+    @MockBean
     private AirplaneTypeService airplaneTypeService;
 
-    @Mock
+    @MockBean
     private TypeService typeService;
 
     @InjectMocks
+    @Autowired
     private AirplaneTypeMutationController airplaneTypeMutationController;
-
-    public AirplaneTypeMutationControllerTests() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void testCreateAirplaneType() {
