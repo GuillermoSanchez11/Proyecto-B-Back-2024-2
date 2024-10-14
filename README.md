@@ -1,3 +1,4 @@
+[![Java CI](https://github.com/CodeFactory2024-2/Proyecto-B/actions/workflows/main.yml/badge.svg)](https://github.com/CodeFactory2024-2/Proyecto-B/actions/workflows/main.yml)
 # Sistema de Gestión de Vuelos B 2024-2
 
 ## Descripción del Módulo
