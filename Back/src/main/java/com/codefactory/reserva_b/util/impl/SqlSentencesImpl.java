@@ -10,7 +10,7 @@ public class SqlSentencesImpl implements ISqlSentences {
     private static final String INSERT_PASSENGER = "INSERT INTO passenger (id_seat, first_name, last_name, date_of_birth, document_id, passport_number, nationality, special_requests, luggage_included) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_passenger";
     private static final String INSERT_BOOKING_PASSENGER = "INSERT INTO booking_passenger (id_booking, id_passenger) VALUES (?, ?)";
     private static final String UPDATE_IS_RESERVED = "UPDATE seat SET is_reserved = ? WHERE id_seat = ?";
-    private static final String INSERT_LUGGAGE = "INSERT INTO luggage (id_passenger, type, height_cm, weight_kg, width_cm, extra_free) VALUES (?, ?, ?, ?, ?, ?) RETURNING id_luggage";
+    private static final String INSERT_LUGGAGE = "INSERT INTO luggage (id_passenger, type, height_cm, weight_kg, width_cm, extra_free) VALUES (?, ?, ?, ?, ?, ?) RETURNING *";
     private static final String FIND_ID_PASSENGERS_BY_ID_BOOKING = "SELECT id_passenger FROM booking_passenger WHERE id_booking = ?";
     private static final String FIND_ID_SEAT_BY_ID_PASSENGER = "SELECT id_seat FROM passenger WHERE id_passenger = ?";
     private static final String DELETE_LUGGAGE = "DELETE FROM luggage WHERE id_passenger = ?";
@@ -21,7 +21,7 @@ public class SqlSentencesImpl implements ISqlSentences {
     private static final String FIND_ALL_FLIGHTS = "SELECT * FROM flight";
     private static final String FIND_PASSENGER_BY_ID_PASSENGER = "SELECT * FROM passenger WHERE id_passenger = ?";
     private static final String UPDATE_LUGGAGE_INCLUDED = "UPDATE passenger SET luggage_included = ? WHERE id_passenger = ?";
-    private static final String UPDATE_LUGGAGE_INFO = "UPDATE luggage SET type = ?, height_cm = ?, weight_kg = ?, width_cm = ?, extra_free = ? WHERE id_luggage = ?";
+    private static final String UPDATE_LUGGAGE_INFO = "UPDATE luggage SET type = ?, height_cm = ?, weight_kg = ?, width_cm = ?, extra_free = ? WHERE id_luggage = ? RETURNING *";
     private static final String COUNT_LUGGAGE_BY_ID_PASSENGER = "SELECT COUNT(*) FROM luggage WHERE id_passenger = ?";
     private static final String FIND_AVAILABLE_SEATS = "SELECT * FROM seat WHERE id_flight = ? AND is_reserved = false";
     private static final String FIND_PASSENGERS_BY_ID_BOOKING = "SELECT id_passenger FROM booking_passenger WHERE id_booking = ?";

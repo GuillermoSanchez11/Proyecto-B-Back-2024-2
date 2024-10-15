@@ -50,7 +50,7 @@ public class FlightEntityImpl implements IFlightEntity, IEntity, Serializable {
     private String status;
 
     @Column(name = "flight_duration", nullable = false)
-    private String flightDuration; // Puede ser un String, o usar Duration si se requiere
+    private String flightDuration;
 
     @Column(name = "distance_km", nullable = false)
     private Double distanceKm;
@@ -65,11 +65,11 @@ public class FlightEntityImpl implements IFlightEntity, IEntity, Serializable {
     @JoinColumn(name = "id_captain", nullable = false, insertable=false, updatable=false)
     private PilotEntityImpl captain;
 
-    @Column(name = "id_subcaptain", nullable = false)
+    @Column(name = "id_sub_captain")
     private BigInteger idSubCaptain;
 
     @ManyToOne
-    @JoinColumn(name = "id_subcaptain", nullable = false, insertable=false, updatable=false)
+    @JoinColumn(name = "id_sub_captain", insertable=false, updatable=false)
     private PilotEntityImpl subCaptain;
 
     @Column(name = "price_economy", nullable = false)

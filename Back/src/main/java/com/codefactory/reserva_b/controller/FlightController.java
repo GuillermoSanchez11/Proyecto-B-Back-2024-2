@@ -1,5 +1,6 @@
 package com.codefactory.reserva_b.controller;
 
+import com.codefactory.reserva_b.dto.impl.FlightResponseDTOImpl;
 import com.codefactory.reserva_b.entity.impl.FlightEntityImpl;
 import com.codefactory.reserva_b.service.impl.FlightServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class FlightController {
     private FlightServiceImpl flightService;
 
     @QueryMapping()
-    public List<FlightEntityImpl> findAllFlights() {
+    public List<FlightResponseDTOImpl> findAllFlights() {
         return flightService.findAllFlights();
     }
 }

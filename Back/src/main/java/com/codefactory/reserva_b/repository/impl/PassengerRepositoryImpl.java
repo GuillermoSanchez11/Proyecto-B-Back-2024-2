@@ -1,5 +1,7 @@
 package com.codefactory.reserva_b.repository.impl;
 
+import com.codefactory.reserva_b.dto.impl.PassengerRequestDTOImpl;
+import com.codefactory.reserva_b.dto.interfaces.ILuggageRequestDTO;
 import com.codefactory.reserva_b.entity.impl.BookingEntityImpl;
 import com.codefactory.reserva_b.entity.impl.LuggageEntityImpl;
 import com.codefactory.reserva_b.entity.impl.PassengerEntityImpl;
@@ -9,10 +11,12 @@ import com.codefactory.reserva_b.util.impl.SqlSentencesImpl;
 import com.codefactory.reserva_b.util.interfaces.ISqlSentences;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,14 +39,14 @@ public class PassengerRepositoryImpl implements IPassengerRepository {
     @Transactional
     @Override
     public List<PassengerEntityImpl> findPassengersByIdBooking(BigInteger idBooking) {
-        List<BigInteger> passengerIds = entityManager.createNativeQuery(sentences.selectPassengerByIdBookingSentence())
+        List<Long> passengerIds = entityManager.createNativeQuery(sentences.selectPassengerByIdBookingSentence())
                 .setParameter(1, idBooking)
                 .getResultList();
         if (passengerIds.isEmpty()) {
             return List.of();
         }
         List<PassengerEntityImpl> passengers = new ArrayList<>();
-        for (BigInteger passengerId : passengerIds) {
+        for (Long passengerId : passengerIds) {
             PassengerEntityImpl passenger = (PassengerEntityImpl) entityManager.createNativeQuery(
                             sentences.selectPassengerByIdPassengerSentence(), PassengerEntityImpl.class)
                     .setParameter(1, passengerId)
@@ -54,13 +58,13 @@ public class PassengerRepositoryImpl implements IPassengerRepository {
 
     @Transactional
     @Override
-    public PassengerEntityImpl createPassenger(PassengerEntityImpl passenger, BigInteger idBooking) {
+    public PassengerEntityImpl createPassenger(PassengerRequestDTOImpl passenger, BigInteger idBooking) {
         Long idPassenger = (Long) entityManager.createNativeQuery(
                         sentences.insertPassengerSentence())
                 .setParameter(1, passenger.getIdSeat())
                 .setParameter(2, passenger.getFirstName())
                 .setParameter(3, passenger.getLastName())
-                .setParameter(4, passenger.getDateOfBirth())
+                .setParameter(4, LocalDate.parse(passenger.getDateOfBirth()))
                 .setParameter(5, passenger.getDocumentId())
                 .setParameter(6, passenger.getPassportNumber())
                 .setParameter(7, passenger.getNationality())
@@ -76,7 +80,7 @@ public class PassengerRepositoryImpl implements IPassengerRepository {
                 .setParameter(2, passenger.getIdSeat())
                 .executeUpdate();
         if (passenger.getLuggageIncluded() && passenger.getLuggage() != null) {
-            for (LuggageEntityImpl luggage : passenger.getLuggage()) {
+            for (ILuggageRequestDTO luggage : passenger.getLuggage()) {
                 entityManager.createNativeQuery(
                                 sentences.insertLuggageSentence())
                         .setParameter(1, idPassenger)
@@ -138,17 +142,17 @@ public class PassengerRepositoryImpl implements IPassengerRepository {
 
     @Transactional
     @Override
-    public PassengerEntityImpl editPassengerInfo(PassengerEntityImpl passenger) {
+    public PassengerEntityImpl editPassengerInfo(BigInteger idPassenger, PassengerRequestDTOImpl passenger) {
         entityManager.createNativeQuery(sentences.updatePassengerInfoSentence())
                 .setParameter(1, passenger.getFirstName())
                 .setParameter(2, passenger.getLastName())
-                .setParameter(3, passenger.getDateOfBirth())
+                .setParameter(3, LocalDate.parse(passenger.getDateOfBirth()))
                 .setParameter(4, passenger.getDocumentId())
                 .setParameter(5, passenger.getPassportNumber())
                 .setParameter(6, passenger.getNationality())
                 .setParameter(7, passenger.getSpecialRequests())
-                .setParameter(8, passenger.getIdPassenger())
+                .setParameter(8, idPassenger)
                 .executeUpdate();
-        return findPassengerByIdPassenger(passenger.getIdPassenger());
+        return findPassengerByIdPassenger(idPassenger);
     }
 }

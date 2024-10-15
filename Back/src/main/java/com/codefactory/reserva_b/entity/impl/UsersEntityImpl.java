@@ -29,10 +29,10 @@ public class UsersEntityImpl implements IUsersEntity, IEntity, Serializable {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "nationality", nullable = false)
+    @Column(name = "nationality")
     private String nationality;
 
-    @Column(name = "date_of_birth", nullable = false)
+    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
     @Column(name = "document_id", nullable = false)
@@ -47,10 +47,10 @@ public class UsersEntityImpl implements IUsersEntity, IEntity, Serializable {
     @Column(name = "flyer_number", nullable = false)
     private Long flyerNumber;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "user_type", nullable = false)
+    @Column(name = "user_type")
     private String userType;
 
     @Column(name = "password_hash", nullable = false)

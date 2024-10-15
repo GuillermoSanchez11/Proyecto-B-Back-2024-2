@@ -1,9 +1,9 @@
 package com.codefactory.reserva_b.controller;
 
+import com.codefactory.reserva_b.dto.impl.BookingResponseDTOImpl;
+import com.codefactory.reserva_b.dto.impl.PassengerRequestDTOImpl;
+import com.codefactory.reserva_b.dto.impl.PassengerResponseDTOImpl;
 import com.codefactory.reserva_b.entity.impl.BookingEntityImpl;
-import com.codefactory.reserva_b.entity.impl.LuggageEntityImpl;
-import com.codefactory.reserva_b.entity.impl.PassengerEntityImpl;
-import com.codefactory.reserva_b.service.impl.BookingServiceImpl;
 import com.codefactory.reserva_b.service.impl.PassengerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -21,32 +21,32 @@ public class PassengerController {
     private PassengerServiceImpl passengerService;
 
     @QueryMapping()
-    public PassengerEntityImpl findPassengerByIdPassenger(@Argument String idPassenger) {
+    public PassengerResponseDTOImpl findPassengerByIdPassenger(@Argument String idPassenger) {
         return passengerService.findPassengerByIdPassenger(idPassenger);
     }
 
     @QueryMapping()
-    public List<PassengerEntityImpl> findPassengersByIdBooking(@Argument String idBooking) {
+    public List<PassengerResponseDTOImpl> findPassengersByIdBooking(@Argument String idBooking) {
         return passengerService.findPassengersByIdBooking(idBooking);
     }
 
     @MutationMapping()
-    public PassengerEntityImpl addPassenger(@Argument PassengerEntityImpl passenger, @Argument String idBooking) {
+    public PassengerResponseDTOImpl addPassenger(@Argument PassengerRequestDTOImpl passenger, @Argument String idBooking) {
         return passengerService.addPassenger(passenger, idBooking);
     }
 
     @MutationMapping()
-    public BookingEntityImpl deletePassenger(@Argument String idPassenger, @Argument String idBooking) {
+    public BookingResponseDTOImpl deletePassenger(@Argument String idPassenger, @Argument String idBooking) {
         return passengerService.deletePassenger(idPassenger, idBooking);
     }
 
     @MutationMapping()
-    public PassengerEntityImpl editPassengerSeat(@Argument String idPassenger, @Argument String idSeat) {
+    public PassengerResponseDTOImpl editPassengerSeat(@Argument String idPassenger, @Argument String idSeat) {
         return passengerService.editPassengerSeat(idPassenger, idSeat);
     }
 
     @MutationMapping()
-    public PassengerEntityImpl editPassengerInfo(@Argument PassengerEntityImpl passenger) {
-        return passengerService.editPassengerInfo(passenger);
+    public PassengerResponseDTOImpl editPassengerInfo(@Argument String idPassenger, @Argument PassengerRequestDTOImpl passenger) {
+        return passengerService.editPassengerInfo(idPassenger, passenger);
     }
 }

@@ -1,10 +1,15 @@
 package com.codefactory.reserva_b.service.impl;
 
+import com.codefactory.reserva_b.dto.impl.BookingResponseDTOImpl;
+import com.codefactory.reserva_b.dto.impl.PassengerRequestDTOImpl;
+import com.codefactory.reserva_b.dto.impl.PassengerResponseDTOImpl;
 import com.codefactory.reserva_b.entity.impl.BookingEntityImpl;
 import com.codefactory.reserva_b.entity.impl.LuggageEntityImpl;
 import com.codefactory.reserva_b.entity.impl.PassengerEntityImpl;
 import com.codefactory.reserva_b.repository.interfaces.IPassengerRepository;
 import com.codefactory.reserva_b.service.interfaces.IPassengerService;
+import com.codefactory.reserva_b.util.interfaces.IBookingMapper;
+import com.codefactory.reserva_b.util.interfaces.IPassengerMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,34 +24,44 @@ import java.util.List;
 public class PassengerServiceImpl implements IPassengerService {
     @Autowired
     private IPassengerRepository passengerRepository;
+    @Autowired
+    private IPassengerMapper passengerMapper;
+    @Autowired
+    private IBookingMapper bookingMapper;
 
     @Override
-    public PassengerEntityImpl findPassengerByIdPassenger(String idPassenger) {
-        return passengerRepository.findPassengerByIdPassenger(new BigInteger(idPassenger));
+    public PassengerResponseDTOImpl findPassengerByIdPassenger(String idPassenger) {
+        PassengerEntityImpl passenger = passengerRepository.findPassengerByIdPassenger(new BigInteger(idPassenger));
+        return passengerMapper.mapPassengerEntityToPassengerResponseDTO(passenger);
     }
 
     @Override
-        public List<PassengerEntityImpl> findPassengersByIdBooking(String idBooking) {
-        return passengerRepository.findPassengersByIdBooking(new BigInteger(idBooking));
+        public List<PassengerResponseDTOImpl> findPassengersByIdBooking(String idBooking) {
+        List<PassengerEntityImpl> passengers = passengerRepository.findPassengersByIdBooking(new BigInteger(idBooking));
+        return passengerMapper.mapPassengerEntitiesToPassengerResponseDTOs(passengers);
     }
 
     @Override
-    public PassengerEntityImpl addPassenger(PassengerEntityImpl passenger, String idBooking) {
-        return passengerRepository.createPassenger(passenger, new BigInteger(idBooking));
+    public PassengerResponseDTOImpl addPassenger(PassengerRequestDTOImpl passenger, String idBooking) {
+        PassengerEntityImpl newPassenger = passengerRepository.createPassenger(passenger, new BigInteger(idBooking));
+        return passengerMapper.mapPassengerEntityToPassengerResponseDTO(newPassenger);
     }
 
     @Override
-    public BookingEntityImpl deletePassenger(String idPassenger, String idBooking) {
-        return passengerRepository.deletePassenger(new BigInteger(idPassenger), new BigInteger(idBooking));
+    public BookingResponseDTOImpl deletePassenger(String idPassenger, String idBooking) {
+        BookingEntityImpl booking = passengerRepository.deletePassenger(new BigInteger(idPassenger), new BigInteger(idBooking));
+        return bookingMapper.mapBookingEntityToBookingResponseDTO(booking);
     }
 
     @Override
-    public PassengerEntityImpl editPassengerSeat(String idPassenger, String idSeat) {
-        return passengerRepository.editPassengerSeat(new BigInteger(idPassenger), new BigInteger(idSeat));
+    public PassengerResponseDTOImpl editPassengerSeat(String idPassenger, String idSeat) {
+        PassengerEntityImpl passenger = passengerRepository.editPassengerSeat(new BigInteger(idPassenger), new BigInteger(idSeat));
+        return passengerMapper.mapPassengerEntityToPassengerResponseDTO(passenger);
     }
 
     @Override
-    public PassengerEntityImpl editPassengerInfo(PassengerEntityImpl passenger) {
-        return passengerRepository.editPassengerInfo(passenger);
+    public PassengerResponseDTOImpl editPassengerInfo(String idPassenger, PassengerRequestDTOImpl passenger) {
+        PassengerEntityImpl editPassenger = passengerRepository.editPassengerInfo(new BigInteger(idPassenger), passenger);
+        return passengerMapper.mapPassengerEntityToPassengerResponseDTO(editPassenger);
     }
 }

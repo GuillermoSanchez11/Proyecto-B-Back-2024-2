@@ -1,5 +1,6 @@
 package com.codefactory.reserva_b.repository.impl;
 
+import com.codefactory.reserva_b.dto.impl.LuggageRequestDTOImpl;
 import com.codefactory.reserva_b.entity.impl.LuggageEntityImpl;
 import com.codefactory.reserva_b.entity.impl.PassengerEntityImpl;
 import com.codefactory.reserva_b.repository.interfaces.ILuggageRepository;
@@ -20,7 +21,7 @@ public class LuggageRepositoryImpl implements ILuggageRepository {
 
     @Override
     @Transactional
-    public LuggageEntityImpl createLuggage(LuggageEntityImpl luggage) {
+    public LuggageEntityImpl createLuggage(LuggageRequestDTOImpl luggage) {
         PassengerEntityImpl passenger = (PassengerEntityImpl) entityManager.createNativeQuery(
                         sentences.selectPassengerByIdPassengerSentence(),
                         PassengerEntityImpl.class)
@@ -34,7 +35,7 @@ public class LuggageRepositoryImpl implements ILuggageRepository {
                     .setParameter(2, luggage.getIdPassenger())
                     .executeUpdate();
         }
-        Long idLuggage = (Long) entityManager.createNativeQuery(sentences.insertLuggageSentence())
+        LuggageEntityImpl newLuggage = (LuggageEntityImpl) entityManager.createNativeQuery(sentences.insertLuggageSentence(), LuggageEntityImpl.class)
                 .setParameter(1, luggage.getIdPassenger())
                 .setParameter(2, luggage.getType())
                 .setParameter(3, luggage.getHeightCm())
@@ -42,22 +43,21 @@ public class LuggageRepositoryImpl implements ILuggageRepository {
                 .setParameter(5, luggage.getWidthCm())
                 .setParameter(6, luggage.getExtraFree())
                 .getSingleResult();
-        luggage.setIdLuggage(new BigInteger(String.valueOf(idLuggage)));
-        return luggage;
+        return newLuggage;
     }
 
     @Override
     @Transactional
-    public LuggageEntityImpl editLuggage(BigInteger idLuggage, LuggageEntityImpl luggage) {
-        entityManager.createNativeQuery(sentences.updateLuggageInfoSentence())
+    public LuggageEntityImpl editLuggage(BigInteger idLuggage, LuggageRequestDTOImpl luggage) {
+        LuggageEntityImpl updatedLuggage = (LuggageEntityImpl) entityManager.createNativeQuery(sentences.updateLuggageInfoSentence(), LuggageEntityImpl.class)
                 .setParameter(1, luggage.getType())
                 .setParameter(2, luggage.getHeightCm())
                 .setParameter(3, luggage.getWeightKg())
                 .setParameter(4, luggage.getWidthCm())
                 .setParameter(5, luggage.getExtraFree())
                 .setParameter(6, idLuggage)
-                .executeUpdate();
-        return luggage;
+                .getSingleResult();
+        return updatedLuggage;
     }
 
     @Override

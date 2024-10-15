@@ -1,6 +1,8 @@
 package com.codefactory.reserva_b.controller;
 
-import com.codefactory.reserva_b.entity.impl.LuggageEntityImpl;
+import com.codefactory.reserva_b.dto.impl.LuggageRequestDTOImpl;
+import com.codefactory.reserva_b.dto.impl.LuggageResponseDTOImpl;
+import com.codefactory.reserva_b.dto.impl.PassengerResponseDTOImpl;
 import com.codefactory.reserva_b.entity.impl.PassengerEntityImpl;
 import com.codefactory.reserva_b.service.impl.BookingServiceImpl;
 import com.codefactory.reserva_b.service.impl.LuggageServiceImpl;
@@ -17,17 +19,17 @@ public class LuggageController {
     private LuggageServiceImpl luggageService;
 
     @MutationMapping()
-    public LuggageEntityImpl addLuggage(@Argument LuggageEntityImpl luggage){
+    public LuggageResponseDTOImpl addLuggage(@Argument LuggageRequestDTOImpl luggage){
         return luggageService.addLuggage(luggage);
     }
 
     @MutationMapping()
-    public LuggageEntityImpl editLuggage(@Argument String idLuggage, @Argument LuggageEntityImpl luggage){
+    public LuggageResponseDTOImpl editLuggage(@Argument String idLuggage, @Argument LuggageRequestDTOImpl luggage){
         return luggageService.editLuggage(idLuggage, luggage);
     }
 
     @MutationMapping()
-    public PassengerEntityImpl deleteLuggage(@Argument String idPassenger, @Argument String idLuggage){
+    public PassengerResponseDTOImpl deleteLuggage(@Argument String idPassenger, @Argument String idLuggage){
         return luggageService.deleteLuggage(idPassenger, idLuggage);
     }
 }

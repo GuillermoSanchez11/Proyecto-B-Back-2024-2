@@ -44,7 +44,7 @@ public class PilotEntityImpl implements IPilotEntity, IEntity, Serializable {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @Column(name = "home_base", nullable = false)
+    @Column(name = "home_base")
     private String homeBase;
 
     @Column(name = "last_medical_check", nullable = false)

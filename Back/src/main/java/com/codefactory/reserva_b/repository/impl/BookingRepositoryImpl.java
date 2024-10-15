@@ -1,5 +1,9 @@
 package com.codefactory.reserva_b.repository.impl;
 
+import com.codefactory.reserva_b.dto.impl.BookingRequestDTOImpl;
+import com.codefactory.reserva_b.dto.impl.PassengerRequestDTOImpl;
+import com.codefactory.reserva_b.dto.interfaces.ILuggageRequestDTO;
+import com.codefactory.reserva_b.dto.interfaces.IPassengerRequestDTO;
 import com.codefactory.reserva_b.entity.impl.BookingEntityImpl;
 import com.codefactory.reserva_b.entity.impl.LuggageEntityImpl;
 import com.codefactory.reserva_b.entity.impl.PassengerEntityImpl;
@@ -13,6 +17,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -50,21 +56,21 @@ public class BookingRepositoryImpl implements IBookingRepository  {
 
     @Transactional
     @Override
-    public BookingEntityImpl createBooking(BookingEntityImpl booking) {
+    public BookingEntityImpl createBooking(BookingRequestDTOImpl booking) {
         Long bookingId = (Long) entityManager.createNativeQuery(sentences.insertBookingSentence())
                 .setParameter(1, booking.getIdFlight())
                 .setParameter(2, booking.getIdUser())
-                .setParameter(3, booking.getBookingDate())
+                .setParameter(3, LocalDateTime.now())
                 .setParameter(4, booking.getBookingStatus())
                 .getSingleResult();
 
         if (booking.getPassengers() != null && !booking.getPassengers().isEmpty()) {
-            for (PassengerEntityImpl passenger : booking.getPassengers()) {
+            for (IPassengerRequestDTO passenger : booking.getPassengers()) {
                 Long passengerId = (Long) entityManager.createNativeQuery(sentences.insertPassengerSentence())
                         .setParameter(1, passenger.getIdSeat())
                         .setParameter(2, passenger.getFirstName())
                         .setParameter(3, passenger.getLastName())
-                        .setParameter(4, passenger.getDateOfBirth())
+                        .setParameter(4, LocalDate.parse(passenger.getDateOfBirth()))
                         .setParameter(5, passenger.getDocumentId())
                         .setParameter(6, passenger.getPassportNumber())
                         .setParameter(7, passenger.getNationality())
@@ -80,15 +86,15 @@ public class BookingRepositoryImpl implements IBookingRepository  {
                         .setParameter(2, passenger.getIdSeat())
                         .executeUpdate();
                 if (passenger.getLuggageIncluded() && passenger.getLuggage() != null) {
-                    for (LuggageEntityImpl luggage : passenger.getLuggage()) {
-                        entityManager.createNativeQuery(sentences.insertLuggageSentence())
+                    for (ILuggageRequestDTO luggage : passenger.getLuggage()) {
+                        LuggageEntityImpl newLuggage = (LuggageEntityImpl) entityManager.createNativeQuery(sentences.insertLuggageSentence(), LuggageEntityImpl.class)
                                 .setParameter(1, passengerId)
                                 .setParameter(2, luggage.getType())
                                 .setParameter(3, luggage.getHeightCm())
                                 .setParameter(4, luggage.getWeightKg())
                                 .setParameter(5, luggage.getWidthCm())
                                 .setParameter(6, luggage.getExtraFree())
-                                .executeUpdate();
+                                .getSingleResult();
                     }
                 }
             }

@@ -18,7 +18,7 @@ CREATE TABLE "pilot"(
                         "hours_flown" FLOAT(53) NOT NULL,
                         "employee_date" DATE NOT NULL,
                         "status" VARCHAR(255) NOT NULL,
-                        "home_base" VARCHAR(255) NOT NULL,
+                        "home_base" VARCHAR(255),
                         "last_medical_check" DATE NOT NULL
 );
 ALTER TABLE
@@ -46,11 +46,11 @@ ALTER TABLE
 CREATE TABLE "luggage"(
                           "id_luggage" bigserial NOT NULL,
                           "id_passenger" BIGINT NOT NULL,
-                          "type" VARCHAR(255) NOT NULL,
+                          "type" VARCHAR(255),
                           "height_cm" DECIMAL(8, 2) NOT NULL,
                           "weight_kg" DECIMAL(8, 2) NOT NULL,
                           "width_cm" DECIMAL(8, 2) NOT NULL,
-                          "extra_free" DECIMAL(8, 2) NOT NULL
+                          "extra_free" DECIMAL(8, 2)
 );
 ALTER TABLE
     "luggage" ADD PRIMARY KEY("id_luggage");
@@ -58,7 +58,7 @@ CREATE TABLE "country"(
                           "id_country" bigserial NOT NULL,
                           "name" VARCHAR(255) NOT NULL,
                           "continent" VARCHAR(255) NOT NULL,
-                          "language" VARCHAR(255) NOT NULL
+                          "language" VARCHAR(255)
 );
 ALTER TABLE
     "country" ADD PRIMARY KEY("id_country");
@@ -82,14 +82,14 @@ CREATE TABLE "users"(
                         "last_name" VARCHAR(255) NOT NULL,
                         "phone_number" VARCHAR(255) NOT NULL,
                         "email" VARCHAR(255) NOT NULL,
-                        "nationality" VARCHAR(255) NOT NULL,
-                        "date_of_birth" DATE NOT NULL,
+                        "nationality" VARCHAR(255),
+                        "date_of_birth" DATE,
                         "document_id" VARCHAR(255) NOT NULL,
                         "passport_number" VARCHAR(255) NOT NULL,
                         "registration_date" DATE NOT NULL,
                         "flyer_number" BIGINT NOT NULL,
-                        "address" VARCHAR(255) NOT NULL,
-                        "user_type" VARCHAR(255) NOT NULL,
+                        "address" VARCHAR(255),
+                        "user_type" VARCHAR(255),
                         "password_hash" VARCHAR(255) NOT NULL
 );
 ALTER TABLE
@@ -107,7 +107,7 @@ CREATE TABLE "flight"(
                          "distance_km" FLOAT(53) NOT NULL,
                          "seats" INTEGER NOT NULL,
                          "id_captain" BIGINT NOT NULL,
-                         "id_subcaptain" BIGINT NOT NULL,
+                         "id_sub_captain" BIGINT,
                          "price_economy" DECIMAL(8, 2) NOT NULL,
                          "price_business" DECIMAL(8, 2) NOT NULL,
                          "price_first_class" DECIMAL(8, 2) NOT NULL
@@ -128,11 +128,11 @@ CREATE TABLE "passenger"(
                             "id_seat" BIGINT NOT NULL,
                             "first_name" VARCHAR(255) NOT NULL,
                             "last_name" VARCHAR(255) NOT NULL,
-                            "date_of_birth" DATE NOT NULL,
+                            "date_of_birth" DATE,
                             "document_id" VARCHAR(255) NOT NULL,
                             "passport_number" VARCHAR(255) NOT NULL,
-                            "nationality" VARCHAR(255) NOT NULL,
-                            "special_requests" VARCHAR(255) NOT NULL,
+                            "nationality" VARCHAR(255),
+                            "special_requests" VARCHAR(255),
                             "luggage_included" BOOLEAN NOT NULL
 );
 ALTER TABLE
@@ -177,7 +177,7 @@ ALTER TABLE
 ALTER TABLE
     "flight" ADD CONSTRAINT "flight_id_arrival_city_foreign" FOREIGN KEY("id_arrival_city") REFERENCES "city"("id_city");
 ALTER TABLE
-    "flight" ADD CONSTRAINT "flight_id_subcaptain_foreign" FOREIGN KEY("id_subcaptain") REFERENCES "pilot"("id_pilot");
+    "flight" ADD CONSTRAINT "flight_id_sub_captain_foreign" FOREIGN KEY("id_sub_captain") REFERENCES "pilot"("id_pilot");
 ALTER TABLE
     "booking" ADD CONSTRAINT "booking_id_user_foreign" FOREIGN KEY("id_user") REFERENCES "users"("id_user");
 ALTER TABLE
@@ -230,7 +230,7 @@ VALUES
     ('Paris', 5, 'Europe/Paris', 48.8566, 2.3522);
 
 
-INSERT INTO flight (flight_number, id_plane, id_departure_city, id_arrival_city, departure_time, arrival_time, status, flight_duration, distance_km, seats, id_captain, id_subcaptain, price_economy, price_business, price_first_class)
+INSERT INTO flight (flight_number, id_plane, id_departure_city, id_arrival_city, departure_time, arrival_time, status, flight_duration, distance_km, seats, id_captain, id_sub_captain, price_economy, price_business, price_first_class)
 VALUES
     (101, 1, 1, 2, '2024-10-10 10:00:00', '2024-10-10 14:00:00', 'Scheduled', '04:00:00', 1500, 180, 1, 2, 200.00, 500.00, 1000.00),
     (102, 2, 3, 4, '2024-10-11 08:00:00', '2024-10-11 12:00:00', 'Scheduled', '04:00:00', 1600, 200, 3, 4, 220.00, 520.00, 1020.00),

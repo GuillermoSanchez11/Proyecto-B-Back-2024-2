@@ -1,8 +1,11 @@
 package com.codefactory.reserva_b.service.impl;
 
+import com.codefactory.reserva_b.dto.impl.BookingRequestDTOImpl;
+import com.codefactory.reserva_b.dto.impl.BookingResponseDTOImpl;
 import com.codefactory.reserva_b.entity.impl.BookingEntityImpl;
 import com.codefactory.reserva_b.repository.interfaces.IBookingRepository;
 import com.codefactory.reserva_b.service.interfaces.IBookingService;
+import com.codefactory.reserva_b.util.interfaces.IBookingMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,34 +19,42 @@ import java.util.List;
 public class BookingServiceImpl implements IBookingService {
     @Autowired
     private IBookingRepository bookingRepository;
+    @Autowired
+    private IBookingMapper bookingMapper;
 
     @Override
-    public List<BookingEntityImpl> findAllBookings() {
-        return bookingRepository.findAllBookings();
+    public List<BookingResponseDTOImpl> findAllBookings() {
+        List<BookingEntityImpl> bookings = bookingRepository.findAllBookings();
+        return bookingMapper.mapBookingEntitiesToBookingResponseDTOs(bookings);
     }
 
     @Override
-    public List<BookingEntityImpl> findBookingsByIdUser(String idUser) {
-        return bookingRepository.findBookingsByIdUser(new BigInteger(idUser));
+    public List<BookingResponseDTOImpl> findBookingsByIdUser(String idUser) {
+        List<BookingEntityImpl> bookings = bookingRepository.findBookingsByIdUser(new BigInteger(idUser));
+        return bookingMapper.mapBookingEntitiesToBookingResponseDTOs(bookings);
     }
 
     @Override
-    public BookingEntityImpl findBookingByIdBooking(String idBooking) {
-        return bookingRepository.findBookingByIdBooking(new BigInteger(idBooking));
+    public BookingResponseDTOImpl findBookingByIdBooking(String idBooking) {
+        BookingEntityImpl booking = bookingRepository.findBookingByIdBooking(new BigInteger(idBooking));
+        return bookingMapper.mapBookingEntityToBookingResponseDTO(booking);
     }
 
     @Override
-    public BookingEntityImpl addBooking(BookingEntityImpl booking) {
-        return bookingRepository.createBooking(booking);
+    public BookingResponseDTOImpl addBooking(BookingRequestDTOImpl booking) {
+        BookingEntityImpl newBooking = bookingRepository.createBooking(booking);
+        return bookingMapper.mapBookingEntityToBookingResponseDTO(newBooking);
     }
 
     @Override
-    public List<BookingEntityImpl> deleteBooking(String idBooking) {
-        return bookingRepository.deleteBooking(new BigInteger(idBooking));
+    public List<BookingResponseDTOImpl> deleteBooking(String idBooking) {
+        List<BookingEntityImpl> bookings = bookingRepository.deleteBooking(new BigInteger(idBooking));
+        return bookingMapper.mapBookingEntitiesToBookingResponseDTOs(bookings);
     }
 
     @Override
-    public BookingEntityImpl editBookingStatus(String bookingStatus, String idBooking) {
-        return bookingRepository.editBookingStatus(bookingStatus, new BigInteger(idBooking));
+    public BookingResponseDTOImpl editBookingStatus(String bookingStatus, String idBooking) {
+        BookingEntityImpl booking = bookingRepository.editBookingStatus(bookingStatus, new BigInteger(idBooking));
+        return bookingMapper.mapBookingEntityToBookingResponseDTO(booking);
     }
 }

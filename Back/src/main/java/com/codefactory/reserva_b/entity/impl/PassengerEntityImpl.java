@@ -30,7 +30,7 @@ public class PassengerEntityImpl implements IPassengerEntity, IEntity, Serializa
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "date_of_birth", nullable = false)
+    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
     @Column(name = "document_id", nullable = false)
@@ -39,10 +39,10 @@ public class PassengerEntityImpl implements IPassengerEntity, IEntity, Serializa
     @Column(name = "passport_number", nullable = false)
     private String passportNumber;
 
-    @Column(name = "nationality", nullable = false)
+    @Column(name = "nationality")
     private String nationality;
 
-    @Column(name = "special_requests", nullable = false)
+    @Column(name = "special_requests")
     private String specialRequests;
 
     @Column(name = "luggage_included", nullable = false)

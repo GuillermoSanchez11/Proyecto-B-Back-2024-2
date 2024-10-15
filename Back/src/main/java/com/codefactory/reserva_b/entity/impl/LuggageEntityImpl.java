@@ -15,10 +15,10 @@ public class LuggageEntityImpl implements ILuggageEntity, IEntity, Serializable 
     @Column(name = "id_luggage")
     private BigInteger idLuggage;
 
-    @Column(name = "id_passenger")
+    @Column(name = "id_passenger", nullable = false)
     private BigInteger idPassenger;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type")
     private String type;
 
     @Column(name = "height_cm", nullable = false)
@@ -30,7 +30,7 @@ public class LuggageEntityImpl implements ILuggageEntity, IEntity, Serializable 
     @Column(name = "width_cm", nullable = false)
     private Double widthCm;
 
-    @Column(name = "extra_free", nullable = false)
+    @Column(name = "extra_free")
     private Double extraFree;
 
     // Constructor

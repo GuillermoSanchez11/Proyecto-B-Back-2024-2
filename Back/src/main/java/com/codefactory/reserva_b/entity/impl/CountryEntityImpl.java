@@ -23,7 +23,7 @@ public class CountryEntityImpl implements ICountryEntity, IEntity, Serializable 
     @Column(name = "continent", nullable = false)
     private String continent;
 
-    @Column(name = "language", nullable = false)
+    @Column(name = "language")
     private String language;
 
     // Constructor

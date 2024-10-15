@@ -1,5 +1,7 @@
 package com.codefactory.reserva_b.controller;
 
+import com.codefactory.reserva_b.dto.impl.BookingRequestDTOImpl;
+import com.codefactory.reserva_b.dto.impl.BookingResponseDTOImpl;
 import com.codefactory.reserva_b.entity.impl.BookingEntityImpl;
 import com.codefactory.reserva_b.service.impl.BookingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +19,27 @@ public class BookingController {
     private BookingServiceImpl bookingService;
 
     @QueryMapping()
-    public List<BookingEntityImpl> findAllBookings() {
+    public List<BookingResponseDTOImpl> findAllBookings() {
         return bookingService.findAllBookings();
     }
     @QueryMapping()
-    public List<BookingEntityImpl> findBookingsByIdUser(@Argument String idUser) {
+    public List<BookingResponseDTOImpl> findBookingsByIdUser(@Argument String idUser) {
         return bookingService.findBookingsByIdUser(idUser);
     }
     @QueryMapping()
-    public BookingEntityImpl findBookingsByIdBooking(@Argument String idBooking) {
+    public BookingResponseDTOImpl findBookingsByIdBooking(@Argument String idBooking) {
         return bookingService.findBookingByIdBooking(idBooking);
     }
     @MutationMapping()
-    public BookingEntityImpl addBooking(@Argument BookingEntityImpl booking) {
+    public BookingResponseDTOImpl addBooking(@Argument BookingRequestDTOImpl booking) {
         return bookingService.addBooking(booking);
     }
     @MutationMapping()
-    public List<BookingEntityImpl> deleteBooking(@Argument String idBooking) {
+    public List<BookingResponseDTOImpl> deleteBooking(@Argument String idBooking) {
         return bookingService.deleteBooking(idBooking);
     }
     @MutationMapping()
-    public BookingEntityImpl editBookingStatus(@Argument String bookingStatus, @Argument String idBooking) {
+    public BookingResponseDTOImpl editBookingStatus(@Argument String bookingStatus, @Argument String idBooking) {
         return bookingService.editBookingStatus(bookingStatus, idBooking);
     }
 }

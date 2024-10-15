@@ -1,3 +1,5 @@
+#QUERYS
+
 type Query {
     findAllBookings: [Booking]
     findBookingsByIdUser(idUser: ID!): [Booking]
@@ -8,6 +10,8 @@ type Query {
     findPassengersByIdBooking(idBooking: ID!): [Passenger]
 }
 
+#MUTATIONS
+
 type Mutation {
     addBooking(booking: BookingInput!): Booking
     deleteBooking(idBooking: ID!): [Booking]
@@ -15,11 +19,13 @@ type Mutation {
     addPassenger(passenger: PassengerInput, idBooking: ID!): Passenger
     deletePassenger(idPassenger: ID!, idBooking: ID!): Booking
     editPassengerSeat(idPassenger: ID!, idSeat: ID!): Passenger
-    editPassengerInfo(passenger: PassengerInput!): Passenger
+    editPassengerInfo(idPassenger: ID!, passenger: PassengerInput!): Passenger
     editLuggage(idLuggage: ID!, luggage: LuggageInput): Luggage
     addLuggage(luggage: LuggageInput): Luggage
     deleteLuggage(idPassenger: ID!, idLuggage: ID!): Passenger
 }
+
+#RESPONSE TYPES
 
 type Booking {
     idBooking: ID!
@@ -33,14 +39,6 @@ type Booking {
     payment: Payment
 }
 
-input BookingInput {
-    idFlight: ID!
-    idUser: ID!
-    bookingDate: String!
-    bookingStatus: String!
-    passengers: [PassengerInput]
-}
-
 type Country {
     idCountry: ID!
     name: String!
@@ -51,16 +49,7 @@ type Country {
 type Luggage {
     idLuggage: ID!
     idPassenger: ID!
-    type: String!
-    heightCm: Float!
-    weightKg: Float!
-    widthCm: Float!
-    extraFree: Float!
-}
-
-input LuggageInput {
-    idPassenger: ID!
-    type: String!
+    type: String
     heightCm: Float!
     weightKg: Float!
     widthCm: Float!
@@ -137,26 +126,13 @@ type Passenger {
     seat: Seat!
     firstName: String!
     lastName: String!
-    dateOfBirth: String!
+    dateOfBirth: String
     documentId: String!
     passportNumber: String!
-    nationality: String!
+    nationality: String
     specialRequests: String
     luggageIncluded: Boolean!
     luggage: [Luggage]
-}
-
-input PassengerInput {
-    idSeat: ID!
-    firstName: String!
-    lastName: String!
-    dateOfBirth: String!
-    documentId: String!
-    passportNumber: String!
-    nationality: String!
-    specialRequests: String
-    luggageIncluded: Boolean!
-    luggage: [LuggageInput]
 }
 
 type Pilot {
@@ -170,7 +146,7 @@ type Pilot {
     hoursFlown: Float!
     employeeDate: String!
     status: String!
-    homeBase: String!
+    homeBase: String
     lastMedicalCheck: String!
 }
 
@@ -190,13 +166,45 @@ type Users {
     lastName: String!
     phoneNumber: String!
     email: String!
-    nationality: String!
-    dateOfBirth: String!
+    nationality: String
+    dateOfBirth: String
     documentId: String!
     passportNumber: String!
     registrationDate: String!
     flyerNumber: Int!
-    address: String!
-    userType: String!
-    passwordHash: String!
+    address: String
+    userType: String
 }
+
+#REQUEST TYPES
+
+input BookingInput {
+    idFlight: ID!
+    idUser: ID!
+    bookingDate: String!
+    bookingStatus: String!
+    passengers: [PassengerInput]
+}
+
+input LuggageInput {
+    idPassenger: ID!
+    type: String
+    heightCm: Float!
+    weightKg: Float!
+    widthCm: Float!
+    extraFree: Float
+}
+
+input PassengerInput {
+    idSeat: ID!
+    firstName: String!
+    lastName: String!
+    dateOfBirth: String!
+    documentId: String!
+    passportNumber: String!
+    nationality: String
+    specialRequests: String
+    luggageIncluded: Boolean!
+    luggage: [LuggageInput]
+}
+

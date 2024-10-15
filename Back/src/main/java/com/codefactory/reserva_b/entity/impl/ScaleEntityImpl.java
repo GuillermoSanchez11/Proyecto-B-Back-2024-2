@@ -20,7 +20,7 @@ public class ScaleEntityImpl implements IScaleEntity, IEntity, Serializable {
     private BigInteger idScale;
 
     @Column(name = "id_flight", nullable = false)
-    private BigInteger idFlight;  // Relación con PassengerEntityImpl
+    private BigInteger idFlight;
 
     @Column(name = "id_city", nullable = false)
     private BigInteger idCity;
