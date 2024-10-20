@@ -30,11 +30,9 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Create GraphQL client directory
-        run: mkdir -p ./Back/src/main/resources/graphql-client
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=GuillermoSanchez11_Proyecto-B-Back-2024-2 || true
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=GuillermoSanchez11_Proyecto-B-Back-2024-2 -Dsonar.jacoco.reportPaths=target/jacoco.exec || true
         working-directory: ./Back
