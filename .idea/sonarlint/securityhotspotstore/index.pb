@@ -9,3 +9,5 @@ K
 .github/workflows/build.yml,f\e\fe77d5d1439f26e353a42bbd38dece2467ff6558
 |
 LBack/src/main/java/com/udea/vueloudea/controller/AirplaneTypeController.java,3\9\39c0d716bd33352b9f433cf400d3be69e27b203c
+v
+FBack/src/test/java/com/udea/vueloudea/AirplaneTypeControllerTests.java,6\d\6df57ba2b19eae7a12ebae66f0bfe021bbaa6aa1
