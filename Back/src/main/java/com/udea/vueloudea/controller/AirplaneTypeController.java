@@ -12,8 +12,10 @@ import java.util.List;
 @Controller
 public class AirplaneTypeController {
 
-    @Autowired
-    private AirplaneTypeService airplaneTypeService;
+    private final AirplaneTypeService airplaneTypeService;
+    public AirplaneTypeController(AirplaneTypeService airplaneTypeService) {
+        this.airplaneTypeService = airplaneTypeService;
+    }
 
     @QueryMapping
     public List<AirplaneType> getAllAirplaneTypes() {
