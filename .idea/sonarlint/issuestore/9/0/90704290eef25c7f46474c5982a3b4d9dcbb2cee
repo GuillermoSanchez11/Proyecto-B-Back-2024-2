@@ -1,0 +1,16 @@
+
+†	java:S112a"FDefine and throw a dedicated exception instead of using a generic one.(¦ÿ¨¸úÿÿÿÿJ$6a1bf168-1e31-4e32-bb24-04e574a46bc7
+~
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$babe19a7-6b34-4407-a5f8-14615096df37
+~
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$a16e4dd2-7847-4623-bd5b-d52db0ecbad4
+~
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$86575dd0-1ba0-4ec0-b10a-be98c082c304
+~
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$0c7bc184-2a4b-4378-85ed-47fb84de567b
+~
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$b197ce9d-fca0-4494-bbe3-aba581d949ad
+}	java:S107"=Method has 13 parameters, which is greater than 7 authorized.(é¹ºŸúÿÿÿÿJ$6b396351-6a9c-41cb-a635-e244978039e0
+w	java:S107?"=Method has 14 parameters, which is greater than 7 authorized.(£Ù¢SJ$b6be1761-3ee4-4afb-bcdf-2b76ec8c7568
+
+java:S3776?"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(£Ù¢SJ$0a3e4f90-36e2-43e6-8c01-b9fa371942a8

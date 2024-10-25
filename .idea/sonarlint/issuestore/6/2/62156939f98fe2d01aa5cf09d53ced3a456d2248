@@ -1,0 +1,12 @@
+
+h
+java:S1948",Make "flightType" transient or serializable.(þø”ÊJ$1605abcb-8bfe-4318-b3dc-1d82d89b07dd
+i
+java:S1948"(Make "origin" transient or serializable.(–„“ ÿÿÿÿÿJ$530cfbd2-b0e0-4475-bd81-b0cadfb88449
+n
+java:S1948"-Make "destination" transient or serializable.(‡¦»ÔùÿÿÿÿJ$e463b4e6-5d74-4675-83ec-f0d17b4f31ba
+o
+java:S1948 ".Make "airplaneType" transient or serializable.(Á¾âÂýÿÿÿÿJ$72bad176-bae5-4907-a63a-31f3367e2594
+d
+java:S1948$"(Make "status" transient or serializable.(Ž¡ÒŽJ$388516fb-6d64-429e-b877-80e00504b777
+}	java:S1070"BConstructor has 14 parameters, which is greater than 7 authorized.(ªßË”J$9e50e422-293c-4f95-aca5-f0665b88848a
