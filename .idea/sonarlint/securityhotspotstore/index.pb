@@ -81,3 +81,8 @@ GBack/src/main/java/com/udea/vueloudea/repository/IFlightRepository.java,8\4\84
 Front/.gitkeep,9\b\9b6d3c9c29faba53855f203405d8dce66c0ce568
 9
 	Back/mvnw,c\a\ca33022bef78d5b2cccbd9b8241bc201de47ff5b
+:
+
+Dockerfile,6\6\6651ddff6eb82c840ced7c1dddee15c6e1913dd4
+B
+docker-compose.yml,3\5\35b8c13cf2eb2a194eada000eb310d65aed53b2a

@@ -1,9 +1,13 @@
-version: '3.8'
-
 services:
   springboot-app:
     build:
-      context: .  # Directorio donde se encuentra el Dockerfile
-      dockerfile: Dockerfile  # Nombre del Dockerfile
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "8025:8025"  # Mapea el puerto 8025 del contenedor al host
+      - "8025:8025"
+    networks:
+      - my_bridge_network
+
+networks:
+    my_bridge_network:
+      external: true
